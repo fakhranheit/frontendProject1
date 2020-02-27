@@ -79,7 +79,7 @@ const Header = () => {
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto d-flex" navbar>
-              <UncontrolledDropdown>
+              <UncontrolledDropdown >
                 <DropdownToggle nav>
                   <FaSteam data-toggle="tooltip" data-placement="right" title="click for more menu" />
                 </DropdownToggle>

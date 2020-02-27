@@ -1,5 +1,6 @@
 .app {
   background-color: #1b2838;
+  min-height: 120vh
 }
 .app-regis {
   background-color: #1b2838;
@@ -105,7 +106,13 @@
   background-color: #161f2d;
   border: black 1px solid;
   margin-top: 30px;
-  margin-left: 50px;
+  margin-left: 70px;
+  width: 80%;
+}
+
+.form-input {
+  width: 80%;
+  margin-left: 10%;
 }
 
 .isi-form {
@@ -202,19 +209,60 @@ input[type="password"]:focus {
   border: 3px solid #555;
 }
 
-.parent {
-  overflow: hidden;
-  position: relative;
+
+/* Halaman Admin */
+
+.tab-admin{
   width: 100%;
+  border-radius: 10px;
+  justify-content: center;
+  min-height: 120vh;
+  /* border: 1px solid white; */
+  display: flex;
+  flex-direction: column;
 }
-.child-right {
-  background:green;
-  height: 100%;
-  width: 50%;
-  position: absolute;
-  right: 0;
-  top: 0;
+
+.tab-kiri{
+  background-color:#161f2d;
+  color:white;
+  min-height:40vh;
 }
+
+.tab-kanan{
+  background-color: #343a40;
+  border-radius: 10px;
+  min-height: 40vh;
+  min-width: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+
+textarea[type="text"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+textarea[type="text"]:focus {
+  border: 3px solid #555;
+}
+
+.button-add{
+  width: auto;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  /* position: absolute; */
+}
+
+/* Halaman Admin selesai*/
 
 /* For mobile phones: */
 [classname*="col-"] {

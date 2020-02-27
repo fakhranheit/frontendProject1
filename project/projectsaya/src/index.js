@@ -12,6 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "aos/dist/aos.css";
 import "mdbreact/dist/css/mdb.css";
 import "react-reveal";
+import 'react-web-tabs/dist/react-web-tabs.css';
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import Reducers from "./redux/reducers";

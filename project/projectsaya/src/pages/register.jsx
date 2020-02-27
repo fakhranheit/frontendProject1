@@ -3,6 +3,7 @@ import { MDBBtn } from "mdbreact";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { registerUser } from "../redux/actions";
+import { Reveal, Zoom } from 'react-reveal'
 
 class Register extends React.Component {
   onClickRegister = () => {
@@ -31,32 +32,36 @@ class Register extends React.Component {
     }
     return (
       <div>
-        <div className="row">
+        <div className="row" style={{ marginTop: '20px' }}>
           <div className="col-3 menu">
             <ul>
-              <div>The Flight</div>
-              <div>The City</div>
-              <div>The Island</div>
-              <div>The Food</div>
+              <Reveal effect="fadeInUp">
+                <img style={{ width: '100%', borderRadius: '20px', marginLeft: '30px', marginTop: '30px', border: '1px black solid' }} src="https://images5.alphacoders.com/901/901108.png" alt="" />
+                <img style={{ width: '100%', borderRadius: '20px', marginLeft: '30px', marginTop: '30px', border: '1px black solid' }} src="https://images5.alphacoders.com/901/901108.png" alt="" />
+                <img style={{ width: '100%', borderRadius: '20px', marginLeft: '30px', marginTop: '30px', border: '1px black solid' }} src="https://images5.alphacoders.com/901/901108.png" alt="" />
+              </Reveal>
+
             </ul>
           </div>
-          <div className="col-6">
-            <div className="form-regis ">
-              <h1>Create Account</h1>
-              <form>
-                <input placeholder="username" ref="username" type="text" id="fname" name="fname" />
-                <input placeholder="email" ref="email" type="text" id="lname" name="lname" />
-                <input placeholder="password" ref="password" type="password" id="lname" name="lname" />
-                <input placeholder="re-enter password" ref="reenter" type="password" id="lname" name="lname" />
-              </form>
-              <div>{this.notiferror()}</div>
-              <div>
-                <MDBBtn onClick={this.onClickRegister} color="dark">
-                  Submit
+          <div className="col-6" style={{ opacity: '0,5px' }}>
+            <Zoom>
+              <div className="form-regis ">
+                <h1>Create Account</h1>
+                <form className="form-input">
+                  <input placeholder="username" ref="username" type="text" id="fname" name="fname" />
+                  <input placeholder="email" ref="email" type="text" id="lname" name="lname" />
+                  <input placeholder="password" ref="password" type="password" id="lname" name="lname" />
+                  <input placeholder="re-enter password" ref="reenter" type="password" id="lname" name="lname" />
+                </form>
+                <div>{this.notiferror()}</div>
+                <div style={{ marginTop: '20px' }}>
+                  <MDBBtn onClick={this.onClickRegister} color="dark">
+                    Submit
                 </MDBBtn>
-                <div></div>
+                  <div></div>
+                </div>
               </div>
-            </div>
+            </Zoom>
           </div>
           <div className="col-3 right">
             <div className="aside menu">
@@ -68,9 +73,6 @@ class Register extends React.Component {
               <p>You can reach Chania airport from all over Europe.</p>
             </div>
           </div>
-        </div>
-        <div className="footer">
-          <p>Resize the browser window to see how the content respond to the resizing.</p>
         </div>
       </div>
     );
