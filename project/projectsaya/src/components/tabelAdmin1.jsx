@@ -11,8 +11,7 @@ class TableAdmin extends Component {
         addImageFile: null,
         genre: [],
         genreId: 0,
-        tabelData: {}
-
+        tabelData: []
     }
 
     componentDidMount() {
@@ -46,25 +45,43 @@ class TableAdmin extends Component {
 
     renderTabel = () => {
         var tabel = this.state.tabelData
-        console.log(tabel.length)
-        console.log(tabel)
+        // console.log(tabel.length)
+        // console.log(tabel)
         if (tabel.length) {
             return tabel.map((val, index) => {
                 return (
                     <tr>
                         <td scope='row'>{index + 1}</td>
                         <td>{val.namaGame}</td>
-                        <td>Game RPG</td>
-                        <td>RPG</td>
+                        <td>{val.deskripsi}</td>
+                        <td>{val.namaGenre}</td>
                         <td><img src={`${APIURLImg + val.foto}`} height="40px" /></td>
                         <td>
-                            <Button size="sm" variant="dark">Edit</Button>
-                            <Button size="sm" variant="dark">Delete</Button>
+                            <Button size="sm" variant="dark" onClick={this.editBtn}>Edit</Button>
+                            <Button size="sm" variant="dark" onClick={() => this.deleteBtn(index)} >Delete</Button>
                         </td>
                     </tr>
                 )
             })
+        } else {
+            return <h1>loading ...</h1>
         }
+    }
+
+    editBtn = () => {
+        this.setState({ modaledit: true })
+    }
+
+    deleteBtn = (index) => {
+        var hapusdata = this.state.tabelData
+        var selectedId = hapusdata[index].id
+        console.log(selectedId)
+        Axios.delete(`${APIURL}game/deletegame/${selectedId}`)
+            .then(res => {
+                console.log('berhasil', res.data)
+            }).catch(err => {
+                console.log('error', err)
+            })
     }
 
     onSaveClick = () => {
@@ -90,10 +107,10 @@ class TableAdmin extends Component {
 
         Axios.post(`${APIURL}game/addgame`, formdata, Headers)
             .then(res => {
-                console.log('resdatagame', res.data.dataGame)
+                // console.log('resdatagame', res.data.dataGame)
                 this.setState({ tabelData: res.data.dataGame })
                 this.setState({ modaladd: false })
-                console.log(formdata)
+                // console.log(formdata)
             })
             .catch(err => {
                 console.log(err)
@@ -117,7 +134,7 @@ class TableAdmin extends Component {
 
     render() {
         // console.log(this.state.genreId)
-        console.log('ini datatble', this.state.tabelData)
+        // console.log('ini datatble', this.state.tabelData)
         const { tabelData } = this.state
         return (
             <div style={{ marginTop: '30px' }}>
@@ -156,12 +173,49 @@ class TableAdmin extends Component {
                         <Button onClick={() => this.setState({ modaladd: false })} variant='dark'>Cancel</Button>
                     </ModalFooter>
                 </Modal>
+
+                <Modal isOpen={this.state.modaledit} toggle={() => this.setState({ modaledit: false })}>
+                    <ModalHeader className='header-addmodal'>
+                        Edit Data
+                    </ModalHeader>
+                    <ModalBody>
+                        <Form>
+                            <FormGroup>''
+                                <input type="text" placeholder="Nama Produk" ref="game" />
+                            </FormGroup>
+                            <FormGroup>
+                                <textarea type="text" placeholder="Deskripsi" ref="deskripsi" />
+                            </FormGroup>
+                            <FormGroup>
+                                <FormText >Foto</FormText>
+                                <input type="file" name="file" onChange={this.onChangeImage} />
+                                <FormText color="muted">
+                                    Format foto harus dalam bentuk PNG
+                                </FormText>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormText>
+                                    Genre
+                                </FormText>
+                                <select onChange={this.onChangeGenre}>
+                                    <option hidden>pilih genre</option>
+                                    {this.renderSelect()}
+                                </select>
+                            </FormGroup>
+                        </Form>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button variant='dark'>Save</Button>
+                        <Button variant='dark' onClick={() => this.setState({ modaledit: false })}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+
                 <div className="button-add">
                     <Button variant='dark' size='sm' onClick={() => this.setState({ modaladd: true })}>
                         Add Product
                     </Button>
                 </div>
-                <Table striped bordered hover variant="dark" style={{ marginTop: '10px', border: '2px solid white' }}>
+                <Table striped bordered hover variant="dark" style={{ marginTop: '10px' }}>
                     <thead>
                         <tr>
                             <th>No</th>
