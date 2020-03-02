@@ -4,33 +4,17 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, FormText }
 import Axios from 'axios'
 import { APIURL, APIURLImg } from '../helper/apiurl'
 
-class TableAdmin extends Component {
+class TableProduct extends Component {
     state = {
         modaladd: false,
         modaledit: false,
         addImageFile: null,
+        editImageFile: null,
         genre: [],
         genreId: 0,
-        tabelData: []
-    }
-
-    componentDidMount() {
-        Axios.get(`${APIURL}game/getgame`)
-            .then(res1 => {
-                this.setState({ tabelData: res1.data })
-                console.log('get game', res1.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-        Axios.get(`${APIURL}game/getgenre`)
-            .then(res => {
-                this.setState({ genre: res.data })
-                console.log('get genre', res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        tabelData: [],
+        indexedit: -1,
+        dataedit: {}
     }
 
     renderSelect = () => {
@@ -50,17 +34,22 @@ class TableAdmin extends Component {
         if (tabel.length) {
             return tabel.map((val, index) => {
                 return (
-                    <tr>
-                        <td scope='row'>{index + 1}</td>
-                        <td>{val.namaGame}</td>
-                        <td>{val.deskripsi}</td>
-                        <td>{val.namaGenre}</td>
-                        <td><img src={`${APIURLImg + val.foto}`} height="40px" /></td>
-                        <td>
-                            <Button size="sm" variant="dark" onClick={this.editBtn}>Edit</Button>
-                            <Button size="sm" variant="dark" onClick={() => this.deleteBtn(index)} >Delete</Button>
-                        </td>
-                    </tr>
+                    <tbody key={index}>
+                        <tr>
+                            {/* {console.log('INI TANGGAL UPLOAD', val.tanggalUpload)} */}
+                            <td>{index + 1}</td>
+                            <td>{val.namaGame}</td>
+                            <td>{val.deskripsi}</td>
+                            <td>{val.namaGenre}</td>
+                            <td>{val.harga}</td>
+                            <td><img src={`${APIURLImg + val.foto}`} height="40px" alt='' /></td>
+                            <td>{val.tanggalUpload}</td>
+                            <td>
+                                <Button size="sm" variant="dark" onClick={() => this.clickEdit(index)}>Edit</Button>
+                                <Button size="sm" variant="dark" onClick={() => this.deleteBtn(index)} >Delete</Button>
+                            </td>
+                        </tr>
+                    </tbody>
                 )
             })
         } else {
@@ -68,17 +57,91 @@ class TableAdmin extends Component {
         }
     }
 
-    editBtn = () => {
-        this.setState({ modaledit: true })
+    clickEdit = (index) => {
+        let tabelData = this.state.tabelData
+        this.setState({ modaledit: true, dataedit: tabelData[index] })
+        console.log(this.state.dataedit)
     }
+
+    onSaveEdit = () => {
+        var idEdit = this.state.dataedit.id
+        var formdata = new FormData()
+        var namaGame = this.refs.editgame.value
+        var deskripsi = this.refs.editdeskripsi.value
+        var Foto = this.state.editImageFile
+        var genreId = this.state.genreId
+        var harga = this.refs.editharga.value
+        var tanggalUpload = new Date()
+        var dataedit = {
+            namaGame,
+            deskripsi,
+            genreId,
+            harga,
+            tanggalUpload
+        }
+
+        var Headers = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+
+        formdata.append('image', Foto)
+        formdata.append('data', JSON.stringify(dataedit))
+
+        Axios.put(`${APIURL}game/editgame/${idEdit}`, formdata, Headers)
+            .then(res => {
+                this.setState({ modaledit: false, tabelData: res.data })
+
+            })
+            .catch(err => {
+                // console.log(err)
+            })
+    }
+
+    onChangeImageEdit = (event) => {
+        console.log('ini image edit', event.target.files[0]);
+        var file = event.target.files[0]
+        if (file) {
+            this.setState({ editImageFile: event.target.files[0] })
+        } else {
+            alert('masukan foto')
+        }
+    }
+    // editBtn = (index) => {
+    //     // console.log('indexnya adalah', index)
+    //     console.log(this.state.indexedit)
+    //     // var tabelData = this.state.tabelData
+    //     // var selectedEditId = tabelData[index].id
+    //     // console.log(selectedEditId)
+
+    //     // Axios.put(`${APIURL}game/editgame/${selectedEditId}`)
+    //     //     .then(res => {
+    //     //         console.log(res)
+    //     //     })
+    //     //     .catch(err => {
+    //     //         console.log(err)
+    //     //     })
+
+    // }
 
     deleteBtn = (index) => {
         var hapusdata = this.state.tabelData
         var selectedId = hapusdata[index].id
-        console.log(selectedId)
+        // console.log(selectedId)
         Axios.delete(`${APIURL}game/deletegame/${selectedId}`)
             .then(res => {
                 console.log('berhasil', res.data)
+                this.setState({ modaladd: false, tabelData: res.data.dataProduct })
+                // Axios.get(`${APIURL}game/getgame`)
+                //     .then(res1 => {
+                //         this.setState({ tabelData: res1.data })
+                //         console.log('get game', res1.data)
+                //     })
+                //     .catch(err => {
+                //         console.log(err)
+                //     })
+
             }).catch(err => {
                 console.log('error', err)
             })
@@ -90,10 +153,14 @@ class TableAdmin extends Component {
         var deskripsi = this.refs.deskripsi.value
         var Foto = this.state.addImageFile
         var genreId = this.state.genreId
+        var harga = this.refs.harga.value
+        var tanggalUpload = new Date()
         var datagame = {
             namaGame,
             deskripsi,
-            genreId
+            genreId,
+            harga,
+            tanggalUpload
         }
 
         var Headers = {
@@ -110,10 +177,17 @@ class TableAdmin extends Component {
                 // console.log('resdatagame', res.data.dataGame)
                 this.setState({ tabelData: res.data.dataGame })
                 this.setState({ modaladd: false })
-                // console.log(formdata)
+                Axios.get(`${APIURL}game/getgame`)
+                    .then(res1 => {
+                        this.setState({ tabelData: res1.data })
+                        console.log('get game', res1.data)
+                    })
+                    .catch(err => {
+                        // console.log(err)
+                    })
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
             })
     }
 
@@ -132,12 +206,34 @@ class TableAdmin extends Component {
         this.setState({ genreId: value })
     }
 
+    componentDidMount() {
+        Axios.get(`${APIURL}game/getgame`)
+            .then(res1 => {
+                console.log('get game', res1.data)
+                this.setState({ tabelData: res1.data })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        Axios.get(`${APIURL}game/getgenre`)
+            .then(res => {
+                this.setState({ genre: res.data })
+                console.log('get genre', res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     render() {
+        // console.log('index edit', this.state.indexedit)
+        console.log('ini data yg di edit', this.state.dataedit)
         // console.log(this.state.genreId)
         // console.log('ini datatble', this.state.tabelData)
-        const { tabelData } = this.state
         return (
-            <div style={{ marginTop: '30px' }}>
+            <div style={{ marginTop: '20px' }}>
+
+                {/* Modal Add */}
                 <Modal isOpen={this.state.modaladd} toggle={() => this.setState({ modaladd: false })}>
                     <ModalHeader className='header-addmodal'>
                         Add Data
@@ -146,6 +242,9 @@ class TableAdmin extends Component {
                         <Form>
                             <FormGroup>
                                 <input type="text" placeholder="Nama Produk" ref="game" />
+                            </FormGroup>
+                            <FormGroup>
+                                <input type="number" placeholder="Harga Produk" ref="harga" />
                             </FormGroup>
                             <FormGroup>
                                 <textarea type="text" placeholder="Deskripsi" ref="deskripsi" />
@@ -173,7 +272,8 @@ class TableAdmin extends Component {
                         <Button onClick={() => this.setState({ modaladd: false })} variant='dark'>Cancel</Button>
                     </ModalFooter>
                 </Modal>
-
+                {/* Modal Add selesai */}
+                {/* Modal Edit */}
                 <Modal isOpen={this.state.modaledit} toggle={() => this.setState({ modaledit: false })}>
                     <ModalHeader className='header-addmodal'>
                         Edit Data
@@ -181,14 +281,17 @@ class TableAdmin extends Component {
                     <ModalBody>
                         <Form>
                             <FormGroup>''
-                                <input type="text" placeholder="Nama Produk" ref="game" />
+                                <input type="text" defaultValue={this.state.dataedit.namaGame} ref="editgame" />
                             </FormGroup>
                             <FormGroup>
-                                <textarea type="text" placeholder="Deskripsi" ref="deskripsi" />
+                                <input type="number" placeholder="Harga Produk" ref="editharga" />
+                            </FormGroup>
+                            <FormGroup>
+                                <textarea type="text" placeholder="Deskripsi" ref="editdeskripsi" />
                             </FormGroup>
                             <FormGroup>
                                 <FormText >Foto</FormText>
-                                <input type="file" name="file" onChange={this.onChangeImage} />
+                                <input type="file" name="file" onChange={this.onChangeImageEdit} />
                                 <FormText color="muted">
                                     Format foto harus dalam bentuk PNG
                                 </FormText>
@@ -205,10 +308,12 @@ class TableAdmin extends Component {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button variant='dark'>Save</Button>
+                        <Button variant='dark' onClick={this.onSaveEdit}>Save</Button>
                         <Button variant='dark' onClick={() => this.setState({ modaledit: false })}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
+                {/* Modal Edit selesai*/}
+                {/* table produk*/}
 
                 <div className="button-add">
                     <Button variant='dark' size='sm' onClick={() => this.setState({ modaladd: true })}>
@@ -222,18 +327,17 @@ class TableAdmin extends Component {
                             <th>Nama Produk</th>
                             <th>Deskripsi</th>
                             <th>Genre</th>
+                            <th>Harga</th>
                             <th>Foto</th>
+                            <th>Tanggal Upload</th>
                             <th style={{ justifyContent: 'center' }}>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {this.renderTabel()}
-
-                    </tbody>
+                    {this.renderTabel()}
                 </Table>
             </div>
         );
     }
 }
 
-export default TableAdmin;
+export default TableProduct;

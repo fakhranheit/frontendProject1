@@ -1,6 +1,7 @@
 .app {
   background-color: #1b2838;
-  min-height: 120vh
+  min-height: 120vh;
+  width: fit-content;
 }
 .app-regis {
   background-color: #1b2838;
@@ -209,6 +210,20 @@ input[type="password"]:focus {
   border: 3px solid #555;
 }
 
+input[type="number"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+input[type="number"]:focus {
+  border: 3px solid #555;
+}
 
 /* Halaman Admin */
 
@@ -217,7 +232,8 @@ input[type="password"]:focus {
   border-radius: 10px;
   justify-content: center;
   min-height: 120vh;
-  /* border: 1px solid white; */
+  min-width: 180vh;
+  padding: 60px;
   display: flex;
   flex-direction: column;
 }
@@ -232,7 +248,7 @@ input[type="password"]:focus {
   background-color: #343a40;
   border-radius: 10px;
   min-height: 40vh;
-  min-width: 100vh;
+  min-width: 160vh;
   padding: 20px;
   display: flex;
   justify-content: center;

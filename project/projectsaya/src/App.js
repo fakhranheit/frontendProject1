@@ -3,7 +3,6 @@ import "./App.css";
 import "./index.css";
 import Header from "./components/header";
 import Home from "./pages/home";
-import Slider from "./components/slider";
 import Register from "./pages/register";
 import Admin from "./pages/manageAdmin";
 import { Route, Switch } from "react-router-dom";
@@ -41,7 +40,6 @@ class App extends Component {
         <Header />
         <Switch>
           <Route exact path={"/"}>
-            <Slider />
             <Home />
           </Route>
           <Route exact path={"/register"} component={Register} />

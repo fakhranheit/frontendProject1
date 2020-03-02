@@ -10,7 +10,7 @@ class Card extends Component {
     return (
       <div>
         <div className="card-deck card-home">
-          <div className="card bg-dark" data-aos="fade-left">
+          <div className="card bg-dark card text-white" data-aos="fade-left">
             <img className="card-img-top" src="https://images5.alphacoders.com/901/901108.png" alt="" />
             <div className="card-body">
               <h5 className="card-title">Monster Hunter World</h5>
@@ -20,7 +20,7 @@ class Card extends Component {
               </p>
             </div>
           </div>
-          <div className="card bg-dark" data-aos="fade-down">
+          <div className="card bg-dark card text-white" data-aos="fade-down">
             <img className="card-img-top" src="https://www.vortez.net/news_file/17727_age-of-empires-4-trailer.jpg" alt="" />
             <div className="card-body">
               <h5 className="card-title">Age of Empire IV</h5>
@@ -30,7 +30,7 @@ class Card extends Component {
               </p>
             </div>
           </div>
-          <div className="card bg-dark" data-aos="fade-right">
+          <div className="card bg-dark card text-white" data-aos="fade-right">
             <img className="card-img-top" src="https://wallpaperaccess.com/full/677562.jpg" alt="" />
             <div className="card-body">
               <h5 className="card-title">Red Dead Redempetion 2</h5>
