@@ -1,7 +1,7 @@
 .app {
   background-color: #1b2838;
-  min-height: 120vh;
-  width: fit-content;
+  min-height: 100vh;
+  
 }
 .app-regis {
   background-color: #1b2838;
@@ -176,7 +176,7 @@
   color: #ffffff;
   text-align: center;
   font-size: 12px;
-  padding: 15px;
+  padding: 30px;
   margin-top: 30px;
 }
 
@@ -280,6 +280,33 @@ textarea[type="text"]:focus {
 
 /* Halaman Admin selesai*/
 
+/* Halaman Store */
+.box-card-store{
+  display: grid;
+  grid-template-columns: repeat(3,auto);
+  justify-content: center;
+  padding: 50px;
+  /* border: 1px solid white; */
+}
+
+.img-hover-zoom {
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.img-hover-zoom img {
+  transition: transform .5s ease;
+}
+
+
+.img-hover-zoom:hover img {
+  transform: scale(1.1);
+  opacity:0.5;
+  transition: 1s;
+}
+
+/* Halaman Store Selesai */
+
 /* For mobile phones: */
 [classname*="col-"] {
   width: 100%;
@@ -366,3 +393,6 @@ textarea[type="text"]:focus {
 }
 
 /* halaman register selesai */
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Oxanium|Roboto&display=swap');
+

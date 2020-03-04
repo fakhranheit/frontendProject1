@@ -11,6 +11,8 @@ import { reLogin } from "./redux/actions";
 import Axios from "axios";
 import { APIURL } from "./helper/apiurl";
 import Footer from './components/footer'
+import StoreDisplay from "./pages/storedisplay";
+import DetailStore from "./pages/detailStore"
 
 class App extends Component {
   state = { loading: true };
@@ -39,11 +41,11 @@ class App extends Component {
       <div className="app">
         <Header />
         <Switch>
-          <Route exact path={"/"}>
-            <Home />
-          </Route>
+          <Route exact path={"/"} component={Home} />
           <Route exact path={"/register"} component={Register} />
           <Route exact path={"/admin"} component={Admin} />
+          <Route exact path={"/storedisplay"} component={StoreDisplay} />
+          <Route exact path={"/detailstore"} component={DetailStore} />
         </Switch>
         <Footer />
       </div>

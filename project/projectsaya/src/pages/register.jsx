@@ -4,8 +4,14 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { registerUser } from "../redux/actions";
 import { Reveal, Zoom } from 'react-reveal'
+import Axios from 'axios'
+import { APIURL, APIURLImg } from '../helper/apiurl'
 
 class Register extends React.Component {
+  state = {
+    tabelData: []
+  }
+
   onClickRegister = () => {
     var username = this.refs.username.value;
     var email = this.refs.email.value;
@@ -26,6 +32,32 @@ class Register extends React.Component {
     }
   };
 
+  renderGambar = () => {
+    var tabelData = this.state.tabelData
+    console.log('panjang tabel', tabelData.length)
+    // console.log(tabel)
+    if (tabelData.length) {
+      return tabelData.map((val) => {
+        return (
+          <img style={{ width: '100%', borderRadius: '20px', marginLeft: '30px', marginTop: '30px', border: '1px black solid' }} src={`${APIURLImg + val.Foto}`} alt="" />
+        )
+      })
+    } else {
+      return <h1>loading ...</h1>
+    }
+  }
+
+  componentDidMount() {
+    Axios.get(`${APIURL}game/getlatest`)
+      .then(res1 => {
+        console.log('get game', res1.data)
+        this.setState({ tabelData: res1.data })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   render() {
     if (this.props.statusregister) {
       return <Redirect to="/" />;
@@ -36,9 +68,7 @@ class Register extends React.Component {
           <div className="col-3 menu">
             <ul>
               <Reveal effect="fadeInUp">
-                <img style={{ width: '100%', borderRadius: '20px', marginLeft: '30px', marginTop: '30px', border: '1px black solid' }} src="https://images5.alphacoders.com/901/901108.png" alt="" />
-                <img style={{ width: '100%', borderRadius: '20px', marginLeft: '30px', marginTop: '30px', border: '1px black solid' }} src="https://images5.alphacoders.com/901/901108.png" alt="" />
-                <img style={{ width: '100%', borderRadius: '20px', marginLeft: '30px', marginTop: '30px', border: '1px black solid' }} src="https://images5.alphacoders.com/901/901108.png" alt="" />
+                {this.renderGambar()}
               </Reveal>
 
             </ul>

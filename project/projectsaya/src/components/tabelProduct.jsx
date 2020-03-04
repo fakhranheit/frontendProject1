@@ -14,7 +14,7 @@ class TableProduct extends Component {
         genreId: 0,
         tabelData: [],
         indexedit: -1,
-        dataedit: {}
+        dataedit: []
     }
 
     renderSelect = () => {
@@ -108,22 +108,7 @@ class TableProduct extends Component {
             alert('masukan foto')
         }
     }
-    // editBtn = (index) => {
-    //     // console.log('indexnya adalah', index)
-    //     console.log(this.state.indexedit)
-    //     // var tabelData = this.state.tabelData
-    //     // var selectedEditId = tabelData[index].id
-    //     // console.log(selectedEditId)
 
-    //     // Axios.put(`${APIURL}game/editgame/${selectedEditId}`)
-    //     //     .then(res => {
-    //     //         console.log(res)
-    //     //     })
-    //     //     .catch(err => {
-    //     //         console.log(err)
-    //     //     })
-
-    // }
 
     deleteBtn = (index) => {
         var hapusdata = this.state.tabelData
@@ -133,15 +118,6 @@ class TableProduct extends Component {
             .then(res => {
                 console.log('berhasil', res.data)
                 this.setState({ modaladd: false, tabelData: res.data.dataProduct })
-                // Axios.get(`${APIURL}game/getgame`)
-                //     .then(res1 => {
-                //         this.setState({ tabelData: res1.data })
-                //         console.log('get game', res1.data)
-                //     })
-                //     .catch(err => {
-                //         console.log(err)
-                //     })
-
             }).catch(err => {
                 console.log('error', err)
             })
@@ -226,10 +202,6 @@ class TableProduct extends Component {
     }
 
     render() {
-        // console.log('index edit', this.state.indexedit)
-        console.log('ini data yg di edit', this.state.dataedit)
-        // console.log(this.state.genreId)
-        // console.log('ini datatble', this.state.tabelData)
         return (
             <div style={{ marginTop: '20px' }}>
 
@@ -284,10 +256,10 @@ class TableProduct extends Component {
                                 <input type="text" defaultValue={this.state.dataedit.namaGame} ref="editgame" />
                             </FormGroup>
                             <FormGroup>
-                                <input type="number" placeholder="Harga Produk" ref="editharga" />
+                                <input type="number" defaultValue={this.state.dataedit.harga} placeholder="Harga Produk" ref="editharga" />
                             </FormGroup>
                             <FormGroup>
-                                <textarea type="text" placeholder="Deskripsi" ref="editdeskripsi" />
+                                <textarea type="text" defaultValue={this.state.dataedit.deskripsi} placeholder="Deskripsi" ref="editdeskripsi" />
                             </FormGroup>
                             <FormGroup>
                                 <FormText >Foto</FormText>
@@ -300,8 +272,8 @@ class TableProduct extends Component {
                                 <FormText>
                                     Genre
                                 </FormText>
-                                <select onChange={this.onChangeGenre}>
-                                    <option hidden>pilih genre</option>
+                                <select onChange={this.onChangeGenre} >
+                                    <option hidden defaultValue={this.state.dataedit.namaGame}>pilih genre</option>
                                     {this.renderSelect()}
                                 </select>
                             </FormGroup>

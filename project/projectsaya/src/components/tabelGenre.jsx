@@ -10,6 +10,10 @@ class TabelGenre extends Component {
         genre: []
     }
 
+    onDeleteClick = (index) => {
+        var genre = this.state.genre
+        console.log(genre[index].id)
+    }
 
     onSaveClick = () => {
         var namaGenre = this.refs.genre.value
@@ -45,7 +49,7 @@ class TabelGenre extends Component {
                             <td>{index + 1}</td>
                             <td>{val.namaGenre}</td>
                             <td>
-                                <Button size="sm" variant="dark" onClick={() => this.deleteBtn(index)} >Delete</Button>
+                                <Button size="sm" variant="dark" onClick={() => this.onDeleteClick(index)} >Delete</Button>
                             </td>
                         </tr>
                     </tbody>

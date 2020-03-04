@@ -4,6 +4,7 @@ import { FaSteam } from "react-icons/fa";
 import { MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter } from "mdbreact";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction, logOut } from "../redux/actions";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   // const username = useSelector(state => state.auth.username);
@@ -85,7 +86,11 @@ const Header = () => {
                 </DropdownToggle>
                 <DropdownMenu bottom>
                   <DropdownItem>
-                    <NavLink href="/">Home</NavLink>
+                    <NavLink >
+                      <Link to='/'>
+                        Home
+                      </Link>
+                    </NavLink>
                   </DropdownItem>
                   {login === false ? (
                     <DropdownItem>
@@ -98,7 +103,7 @@ const Header = () => {
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
-                <NavLink href="">Store</NavLink>
+                <NavLink href="/storedisplay">Store</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="">Community</NavLink>
