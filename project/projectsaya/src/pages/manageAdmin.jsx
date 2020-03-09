@@ -6,43 +6,50 @@ import { connect } from 'react-redux'
 
 class Admin extends Component {
   render() {
-    console.log(this.props.role);
 
-    return (
-      <div>
-        <div className="tab-admin">
+    if (this.props.role === 'admin') {
+      return (
+        <div>
+          <div className="tab-admin">
 
-          <div style={{ margin: '0 auto' }}>
-            <h3 style={{ color: 'white' }}>MANAGE STORE</h3>
+            <div style={{ margin: '0 auto' }}>
+              <h3 style={{ color: 'white' }}>MANAGE STORE</h3>
 
-            <Tabs defaultTab="vertical-tab-one" vertical>
+              <Tabs defaultTab="vertical-tab-one" vertical>
 
-              {/* TAB KIRI */}
-              <TabList className="tab-kiri">
-                <Tab tabFor="vertical-tab-one" style={{ color: 'white' }}>Product</Tab>
-                <Tab tabFor="vertical-tab-two" style={{ color: 'white' }}>Genre</Tab>
-                <Tab tabFor="vertical-tab-three" style={{ color: 'white' }}> Transaction </Tab>
-              </TabList>
+                {/* TAB KIRI */}
+                <TabList className="tab-kiri">
+                  <Tab tabFor="vertical-tab-one" style={{ color: 'white' }}>Product</Tab>
+                  <Tab tabFor="vertical-tab-two" style={{ color: 'white' }}>Genre</Tab>
+                  <Tab tabFor="vertical-tab-three" style={{ color: 'white' }}> Transaction </Tab>
+                </TabList>
 
-              {/* TAB KANAN */}
-              <div className="tab-kanan">
-                <TabPanel tabId="vertical-tab-one">
-                  <TabelProduct />
-                </TabPanel>
+                {/* TAB KANAN */}
+                <div className="tab-kanan">
+                  <TabPanel tabId="vertical-tab-one">
+                    <TabelProduct />
+                  </TabPanel>
 
-                <TabPanel tabId="vertical-tab-two">
-                  <TabelGenre />
-                </TabPanel>
+                  <TabPanel tabId="vertical-tab-two">
+                    <TabelGenre />
+                  </TabPanel>
 
-                <TabPanel tabId="vertical-tab-three">
-                  <p>Tab 3 content</p>
-                </TabPanel>
-              </div>
-            </Tabs>
+                  <TabPanel tabId="vertical-tab-three">
+                    <p>Tab 3 content</p>
+                  </TabPanel>
+                </div>
+              </Tabs>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+    else {
+      return (
+
+        <h1>HARUS ADMIN</h1>
+      )
+    }
   }
 }
 

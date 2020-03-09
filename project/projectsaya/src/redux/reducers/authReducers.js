@@ -11,12 +11,14 @@ const INITIAL_STATE = {
   error: "",
   loading: false,
   statusregister: false,
-  loginstatus: false
+  loginstatus: false,
+  role: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case USER_LOGIN_SUCCESS:
+      console.log(action.payload);
       return { ...INITIAL_STATE, ...action.payload, loginstatus: true };
 
     case USER_LOGOUT:
