@@ -5,6 +5,7 @@ import { MDBCardBody, MDBBadge, MDBIcon } from "mdbreact";
 import { Zoom } from 'react-reveal'
 import Axios from 'axios'
 import { APIURL, APIURLImg } from '../helper/apiurl'
+import { Link } from 'react-router-dom'
 
 class GambarCarousel extends Component {
   state = {
@@ -13,14 +14,18 @@ class GambarCarousel extends Component {
 
   renderCarousel = () => {
     var produk = this.state.produk
-    console.log('ini state produk', produk)
+    console.log('ini state produk', produk[0])
     if (produk.length) {
       return produk.map((val) => {
         return (
+
           <div>
             <img src={`${APIURLImg + val.Foto}`} alt="" />
-            <p className="legend">{val.namaGame}</p>
+            <Link to={"/detailstore/" + val.id}>
+              <p className="legend">{val.namaGame}</p>
+            </Link>
           </div>
+
         )
       })
     } else {

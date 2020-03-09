@@ -19,6 +19,7 @@ class TableProduct extends Component {
 
     renderSelect = () => {
         var genre = this.state.genre
+        // console.log(genre)
         return genre.map((val, index) => {
             // console.log(val.id)
             // console.log(val.namaGenre)
@@ -58,6 +59,15 @@ class TableProduct extends Component {
     }
 
     clickEdit = (index) => {
+        Axios.get(`${APIURL}game/getgenre`)
+            .then(res => {
+                this.setState({ genre: res.data })
+                console.log('get genre', res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
         let tabelData = this.state.tabelData
         this.setState({ modaledit: true, dataedit: tabelData[index] })
         console.log(this.state.dataedit)
@@ -185,7 +195,7 @@ class TableProduct extends Component {
     componentDidMount() {
         Axios.get(`${APIURL}game/getgame`)
             .then(res1 => {
-                console.log('get game', res1.data)
+                // console.log('get game', res1.data)
                 this.setState({ tabelData: res1.data })
             })
             .catch(err => {
@@ -194,7 +204,7 @@ class TableProduct extends Component {
         Axios.get(`${APIURL}game/getgenre`)
             .then(res => {
                 this.setState({ genre: res.data })
-                console.log('get genre', res.data)
+                // console.log('get genre', res.data)
             })
             .catch(err => {
                 console.log(err)

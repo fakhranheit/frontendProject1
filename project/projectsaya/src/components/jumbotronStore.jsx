@@ -14,7 +14,7 @@ class JumbotronStore extends Component {
         if (genre.length) {
             return genre.map((val) => {
                 // console.log('ini genre', genre);
-                return <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'center', alignItems: 'center' }} value={val.id}>
+                return <div style={{ display: 'flex', justifyContent: 'center' }} value={val.id}>
                     <div style={{ cursor: 'pointer' }}>
                         {val.namaGenre}
                     </div>
@@ -48,7 +48,7 @@ class JumbotronStore extends Component {
 
                             <div style={{ borderRadius: "10px", padding: '20px', backgroundColor: '#1b2838', color: 'white', fontWeight: 'bolder', minWidth: '30vh', marginTop: '20px', marginBottom: '50px', marginRight: '50px' }}>
                                 <div style={{ fontFamily: 'Oxanium' }}>
-                                    <div style={{ fontSize: '20px', marginBottom: '20px' }}>Browse by Genre</div>
+                                    <div style={{ fontSize: '30px', marginBottom: '20px' }}>Browse by Genre</div>
                                     {this.renderList()}
                                 </div>
                             </div>

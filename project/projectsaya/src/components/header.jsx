@@ -103,10 +103,18 @@ const Header = () => {
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
-                <NavLink href="/storedisplay">Store</NavLink>
+                <NavLink>
+                  <Link to='/storedisplay' style={{ color: 'white' }}>
+                    Store
+                  </Link>
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="">Community</NavLink>
+                <NavLink >
+                  <Link to='/' style={{ color: 'white' }}>
+                    Community
+                  </Link>
+                </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="">About</NavLink>

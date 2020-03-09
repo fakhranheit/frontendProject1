@@ -10,10 +10,19 @@ class TabelGenre extends Component {
         genre: []
     }
 
-    onDeleteClick = (index) => {
+    deleteBtn = (index) => {
         var genre = this.state.genre
-        console.log(genre[index].id)
+        var selectedId = genre[index].id
+        console.log(selectedId)
+        Axios.delete(`${APIURL}game/deletegenre/${selectedId}`)
+            .then(res => {
+                // console.log('berhasil', res.data)
+                this.setState({ genre: res.data.datagenre })
+            }).catch(err => {
+                console.log('error', err)
+            })
     }
+
 
     onSaveClick = () => {
         var namaGenre = this.refs.genre.value
@@ -49,7 +58,7 @@ class TabelGenre extends Component {
                             <td>{index + 1}</td>
                             <td>{val.namaGenre}</td>
                             <td>
-                                <Button size="sm" variant="dark" onClick={() => this.onDeleteClick(index)} >Delete</Button>
+                                <Button size="sm" variant="dark" onClick={() => this.deleteBtn(index)} >Delete</Button>
                             </td>
                         </tr>
                     </tbody>
@@ -64,7 +73,7 @@ class TabelGenre extends Component {
         Axios.get(`${APIURL}game/getgenre`)
             .then(res => {
                 this.setState({ genre: res.data })
-                console.log('get genre', res.data)
+                // console.log('get genre', res.data)
             })
             .catch(err => {
                 console.log(err)

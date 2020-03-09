@@ -15,9 +15,9 @@ class CardStore extends Component {
                 <div className="img-hover-zoom">
                     <Link to={"/detailstore/" + val.id}>
                         <div className="card text-white" style={{ padding: '10px', backgroundColor: '#1b2838', fontFamily: 'Oxanium' }}>
-                            <img className="card-img " src={`${APIURLImg + val.foto}`} alt="" style={{ width: '300px', height: '200px' }} />
+                            <img className="card-img " src={`${APIURLImg + val.foto}`} alt="" style={{ width: '300px', height: '200px', borderRadius: '10px' }} />
                             <div className="card-img-overlay" >
-                                <div style={{ marginTop: '105px' }}>
+                                <div style={{ paddingTop: '105px' }}>
                                     <div className="card-title" >{val.namaGame}</div>
                                     <p className="card-text">{val.namaGenre}</p>
                                 </div>
@@ -41,9 +41,11 @@ class CardStore extends Component {
     }
 
     render() {
+        console.log(this.state.dataGame);
+
         return (
             <div>
-                <h1 style={{ fontFamily: 'Oxanium', color: 'white', display: 'flex', justifyContent: 'center', paddingTop: '60px' }}>All Games</h1>
+                <h1 style={{ fontFamily: 'Oxanium', color: 'white', display: 'flex', justifyContent: 'center', paddingTop: '100px' }}>All Games</h1>
                 <div className="box-card-store row ">
                     {this.renderProduk()}
                 </div>

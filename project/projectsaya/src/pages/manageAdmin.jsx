@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import TabelProduct from '../components/tabelProduct'
 import TabelGenre from '../components/tabelGenre'
+import { connect } from 'react-redux'
 
 class Admin extends Component {
   render() {
+    console.log(this.props.role);
+
     return (
       <div>
         <div className="tab-admin">
@@ -42,4 +45,12 @@ class Admin extends Component {
     );
   }
 }
-export default Admin;
+
+const mapStateToProps = state => {
+  return {
+    username: state.auth.username,
+    role: state.auth.role
+  };
+};
+
+export default connect(mapStateToProps, {})(Admin);

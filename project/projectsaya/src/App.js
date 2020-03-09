@@ -45,7 +45,7 @@ class App extends Component {
           <Route exact path={"/register"} component={Register} />
           <Route exact path={"/admin"} component={Admin} />
           <Route exact path={"/storedisplay"} component={StoreDisplay} />
-          <Route exact path={"/detailstore"} component={DetailStore} />
+          <Route exact path={"/detailstore/:id"} component={DetailStore} />
         </Switch>
         <Footer />
       </div>
