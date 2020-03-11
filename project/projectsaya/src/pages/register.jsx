@@ -39,7 +39,8 @@ class Register extends React.Component {
     if (tabelData.length) {
       return tabelData.map((val) => {
         return (
-          <img style={{ width: '100%', borderRadius: '20px', marginLeft: '30px', marginTop: '30px', border: '1px black solid' }} src={`${APIURLImg + val.Foto}`} alt="" />
+
+          <img style={{ width: '100%', borderRadius: '10px', marginLeft: '30px', marginTop: '30px', border: '1px black solid' }} src={`${APIURLImg + val.Foto}`} alt="" />
         )
       })
     } else {
@@ -96,9 +97,9 @@ class Register extends React.Component {
           <div className="col-3 right">
             <div className="aside menu">
               <h2>What?</h2>
-              <p>Chania is a city on the island of Crete.</p>
+              <p>A vast various of games within your hand</p>
               <h2>Where?</h2>
-              <p>Crete is a Greek island in the Mediterranean Sea.</p>
+              <p>You can access it everywhere</p>
               <h2>How?</h2>
               <p>You can reach Chania airport from all over Europe.</p>
             </div>

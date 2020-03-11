@@ -7,8 +7,7 @@ import { loginAction, logOut } from "../redux/actions";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  // const username = useSelector(state => state.auth.username);
-  // const reLogin = useSelector(state => state.auth.loginstatus);
+  const username = useSelector(state => state.auth.username);
   const login = useSelector(state => state.auth.loginstatus);
   const loginerror = useSelector(state => state.auth.loginerror);
   const dispatch = useDispatch();
@@ -48,6 +47,8 @@ const Header = () => {
   const onLoginChange = e => {
     const { name, value } = e.target;
     setdataLogin({ ...dataLogin, [name]: value });
+    // console.log(dataLogin);
+
   };
 
   return (
@@ -94,11 +95,11 @@ const Header = () => {
                   </DropdownItem>
                   {login === false ? (
                     <DropdownItem>
-                      <NavLink onClick={toggleLogin}>Login</NavLink>
+                      <NavLink onClick={toggleLogin} style={{ marginLeft: '10px' }}>Login</NavLink>
                     </DropdownItem>
                   ) : null}
                   <DropdownItem>
-                    <NavLink href="/register">Register</NavLink>
+                    <NavLink href="/register" style={{ marginLeft: '10px' }}>Register</NavLink>
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
@@ -120,13 +121,16 @@ const Header = () => {
                 <NavLink href="">About</NavLink>
               </NavItem>
               {login === true ? (
-                <Dropdown style={{ marginLeft: "155vh", position: 'relative' }} isOpen={dropdownOpen} toggle={toggleAccount}>
+                <Dropdown style={{ marginLeft: "180vh", position: 'absolute' }} isOpen={dropdownOpen} toggle={toggleAccount}>
                   <DropdownToggle nav>
-                    <FaSteam />
+                    Hello, {username}
                   </DropdownToggle>
                   <DropdownMenu right>
+                    <DropdownItem style={{ marginBottom: '10px' }}>
+                      <Link>Profile</Link>
+                    </DropdownItem>
                     <DropdownItem>
-                      <NavLink>Log out</NavLink>
+                      <Link to="/cart">Cart</Link>
                     </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem>

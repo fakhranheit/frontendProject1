@@ -13,6 +13,7 @@ import { APIURL } from "./helper/apiurl";
 import Footer from './components/footer'
 import StoreDisplay from "./pages/storedisplay";
 import DetailStore from "./pages/detailStore"
+import Cart from './pages/cart'
 
 class App extends Component {
   state = { loading: true };
@@ -46,6 +47,7 @@ class App extends Component {
           <Route exact path={"/admin"} component={Admin} />
           <Route exact path={"/storedisplay"} component={StoreDisplay} />
           <Route exact path={"/detailstore/:id"} component={DetailStore} />
+          <Route exact path={"/cart"} component={Cart} />
         </Switch>
         <Footer />
       </div>

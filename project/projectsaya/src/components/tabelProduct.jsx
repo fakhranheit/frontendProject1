@@ -19,10 +19,7 @@ class TableProduct extends Component {
 
     renderSelect = () => {
         var genre = this.state.genre
-        // console.log(genre)
         return genre.map((val, index) => {
-            // console.log(val.id)
-            // console.log(val.namaGenre)
             return <option value={val.id} key={index}>{val.namaGenre}</option>
         })
     }
@@ -118,7 +115,6 @@ class TableProduct extends Component {
             alert('masukan foto')
         }
     }
-
 
     deleteBtn = (index) => {
         var hapusdata = this.state.tabelData
