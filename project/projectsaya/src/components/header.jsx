@@ -132,9 +132,12 @@ const Header = () => {
                     <DropdownItem>
                       <Link to="/cart">Cart</Link>
                     </DropdownItem>
+                    <DropdownItem>
+                      <NavLink href="/payment">Payment</NavLink>
+                    </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem>
-                      <NavLink onClick={btnLogout}>Log out</NavLink>
+                      <Link to='/' onClick={btnLogout}>Log out</Link >
                     </DropdownItem>
                   </DropdownMenu>
                 </Dropdown>

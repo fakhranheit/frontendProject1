@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Axios from 'axios'
 import { APIURL, APIURLImg } from '../helper/apiurl'
 import { Link } from 'react-router-dom'
+import AOS from "aos";
 
 class CardStore extends Component {
     state = {
@@ -12,7 +13,7 @@ class CardStore extends Component {
         var dataGame = this.state.dataGame
         return dataGame.map((val) => {
             return (
-                <div className="img-hover-zoom">
+                <div className="img-hover-zoom" data-aos="fade-down">
                     <Link to={"/detailstore/" + val.id}>
                         <div className="card text-white" style={{ padding: '10px', backgroundColor: '#1b2838', fontFamily: 'Oxanium' }}>
                             <img className="card-img " src={`${APIURLImg + val.foto}`} alt="" style={{ width: '300px', height: '200px', borderRadius: '10px' }} />
@@ -41,10 +42,11 @@ class CardStore extends Component {
     }
 
     render() {
-        console.log(this.state.dataGame);
-
+        AOS.init({
+            delay: 5000
+        });
         return (
-            <div>
+            <div data-aos="fade-up">
                 <h1 style={{ fontFamily: 'Oxanium', color: 'white', display: 'flex', justifyContent: 'center', paddingTop: '100px' }}>All Games</h1>
                 <div className="box-card-store row ">
                     {this.renderProduk()}

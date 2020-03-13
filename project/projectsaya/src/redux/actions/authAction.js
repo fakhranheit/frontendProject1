@@ -30,6 +30,19 @@ export const registerUser = ({ username, password, email }) => {
   };
 };
 
+
+export const reLogin = res => {
+  return dispatch => {
+    // localStorage.setItem("username", res.username);
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: res });
+  };
+};
+
+export const logOut = () => {
+  return dispatch =>
+    dispatch({ type: USER_LOGOUT });
+};
+
 export const loginAction = (username, password) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING });
@@ -52,15 +65,4 @@ export const loginAction = (username, password) => {
       }
     });
   };
-};
-
-export const reLogin = res => {
-  return dispatch => {
-    // localStorage.setItem("username", res.username);
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: res });
-  };
-};
-
-export const logOut = () => {
-  return { type: USER_LOGOUT };
 };

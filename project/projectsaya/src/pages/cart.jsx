@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import NumberFormat from 'react-number-format'
 import Axios from 'axios'
 import { APIURL, APIURLImg } from '../helper/apiurl';
+import { Button } from 'react-bootstrap'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -9,11 +10,33 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
 
 class Cart extends Component {
     state = {
-        datacart: {},
-        totalharga: 0
+        datacart: [],
+        totalharga: 0,
+        redirect: false
+    }
+
+    checkOut = () => {
+        // console.log(this.state.totalharga);
+        // var datacart = this.state.datacart
+        var totalharga = this.state.totalharga
+        var iduser = this.state.datacart[0].userid
+        // let data = {
+        //     totalharga,
+        //     iduser,
+        //     datacart: this.state.datacart
+        // }
+        console.log(iduser);
+        console.log(totalharga)
+        Axios.post(`${APIURL}game/checkout/${iduser}`, {
+            totalharga
+        })
     }
 
     deleteItem = (id, index) => {
@@ -45,8 +68,7 @@ class Cart extends Component {
 
     renderItem = () => {
         var itemCart = this.state.datacart
-        console.log(itemCart);
-
+        // console.log(itemCart);
         if (itemCart.length > 0) {
             return itemCart.map((val, index) => {
                 return (
@@ -55,10 +77,10 @@ class Cart extends Component {
                             expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
                         >
                             <Typography>
-                                <div>
-                                    <img src={`${APIURLImg + val.Foto}`} alt='' style={{ width: '80px', height: '80px' }} />
-                                    <span style={{ marginLeft: '20px', fontFamily: 'Oxanium' }}>{val.namaGame}</span>
-                                </div>
+
+                                <img src={`${APIURLImg + val.Foto}`} alt='' style={{ width: '80px', height: '80px' }} />
+                                <span style={{ marginLeft: '20px', fontFamily: 'Oxanium' }}>{val.namaGame}</span>
+
                             </Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
@@ -80,13 +102,14 @@ class Cart extends Component {
         }
         else {
             return (
-                <h1>Loading ...</h1>
+                <h1 style={{ fontFamily: 'oxanium' }}>There is no item on your cart</h1>
             )
         }
     }
 
     componentDidMount() {
         var id = localStorage.getItem("id")
+        // var id = this.props.iduser
         // console.log(id);
         Axios.get(`${APIURL}game/getcart/${id}`)
             .then(res => {
@@ -106,6 +129,11 @@ class Cart extends Component {
     }
 
     render() {
+        if (this.state.redirect) {
+            return (
+                <Redirect to='payment' />
+            )
+        }
         return (
             <div>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -119,6 +147,7 @@ class Cart extends Component {
                         <div style={{ minWidth: '100px', marginTop: '20px', color: 'white', fontFamily: 'Oxanium', fontSize: '25px' }}>
                             Estimated Price :
                             <NumberFormat value={this.state.totalharga} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} style={{ color: 'white', marginLeft: '10px' }} />
+                            <Button variant='dark' style={{ marginLeft: '200px', marginBottom: '10px' }} onClick={this.checkOut}><Link to='/payment'>Checkout</Link></Button>
                         </div>
                     </div>
                 </div>
@@ -127,4 +156,9 @@ class Cart extends Component {
     }
 }
 
-export default Cart;
+const mapStateToProps = state => {
+    return {
+        iduser: state.auth.id,
+    };
+};
+export default connect(mapStateToProps, {})(Cart);

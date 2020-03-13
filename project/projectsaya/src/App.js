@@ -14,6 +14,7 @@ import Footer from './components/footer'
 import StoreDisplay from "./pages/storedisplay";
 import DetailStore from "./pages/detailStore"
 import Cart from './pages/cart'
+import PaymentUser from './pages/paymentuser'
 
 class App extends Component {
   state = { loading: true };
@@ -48,6 +49,7 @@ class App extends Component {
           <Route exact path={"/storedisplay"} component={StoreDisplay} />
           <Route exact path={"/detailstore/:id"} component={DetailStore} />
           <Route exact path={"/cart"} component={Cart} />
+          <Route exact path={"/payment"} component={PaymentUser} />
         </Switch>
         <Footer />
       </div>

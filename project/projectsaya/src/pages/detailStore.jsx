@@ -4,6 +4,7 @@ import { APIURL, APIURLImg } from '../helper/apiurl'
 import { Button } from 'react-bootstrap'
 import NumberFormat from 'react-number-format'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class DetailStore extends Component {
     state = {
@@ -53,7 +54,10 @@ class DetailStore extends Component {
                             <div style={{ fontSize: '40px' }}> {this.state.detailgame.namaGame} </div>
                             <div style={{ marginTop: '10px', marginBottom: '7px' }}>{this.state.detailgame.namaGenre}</div>
                             <div style={{ marginBottom: '20px' }}>{this.state.detailgame.deskripsi}</div>
-                            <Button onClick={this.onAddtoCart} variant='dark' title='Buy'> <NumberFormat value={this.state.detailgame.harga} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} /></Button>
+                            <div>
+                                <Button onClick={this.onAddtoCart} variant='dark' title='Buy'> <NumberFormat value={this.state.detailgame.harga} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} /></Button>
+                                <Link to='/storedisplay' ><Button variant='dark' title='Back' style={{ color: 'white' }}>Back to Shop</Button></Link>
+                            </div>
                         </div>
                     </div>
                 </div>
