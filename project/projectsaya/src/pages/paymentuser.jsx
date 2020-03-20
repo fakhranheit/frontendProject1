@@ -60,7 +60,7 @@ class PaymentUser extends Component {
         // var id = this.props.iduser
         Axios.get(`${APIURL}game/gettotalharga/${id}`)
             .then(res => {
-                console.log(res.data[0].totalharga)
+                console.log(res.data)
                 this.setState({ totalharga: res.data[0].totalharga })
             })
             .catch(err => {
@@ -72,20 +72,19 @@ class PaymentUser extends Component {
         console.log(this.props.iduser);
         return (
             <div>
-                <div style={{ display: 'flex', justifyContent: 'center', border: '1px solid white' }}>
-                    <div style={{ width: '800px', marginTop: '50px', minHeight: '100vh', padding: '30px', backgroundColor: '#161f2d', border: '1px solid white' }}>
-                        <div style={{ display: 'flex', justifyContent: 'center', color: 'white', border: '1px solid white' }}>
-                            <h1 style={{ fontFamily: 'Oxanium', border: '1px solid white' }}>Payment</h1>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ width: '800px', marginTop: '50px', minHeight: '100vh', padding: '30px', backgroundColor: '#161f2d' }}>
+                        <div style={{ display: 'flex', justifyContent: 'center', color: 'white' }}>
+                            <h1 style={{ fontFamily: 'Oxanium' }}>Payment</h1>
                         </div>
                         <div>
-
                         </div>
-                        <div style={{ minWidth: '100px', marginTop: '20px', color: 'white', fontFamily: 'Oxanium', fontSize: '25px', justifyContent: 'center', border: '1px solid white' }}>
-                            <div style={{ display: 'flex', justifyContent: 'center', color: 'white', border: '1px solid white' }}>
-                                <NumberFormat value={this.state.totalharga} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} style={{ color: 'white', marginLeft: '10px' }} />
+                        <div style={{ minWidth: '100px', marginTop: '20px', color: 'white', fontFamily: 'Oxanium', fontSize: '25px', justifyContent: 'center' }}>
+                            <div style={{ display: 'flex', justifyContent: 'center', color: 'white' }}>
+                                <NumberFormat value={this.state.totalharga} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} style={{ color: 'white', marginLeft: '10px', marginBottom: '30px' }} />
                             </div>
                             <CustomInput type="file" style={{ borderRadius: '10px', padding: '10px' }} onChange={this.onChangeImage} />
-                            <div style={{ display: 'flex', justifyContent: 'center', color: 'white', border: '1px solid white', marginTop: '10px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'center', color: 'white', marginTop: '30px' }}>
                                 <Button variant='dark' onClick={this.uploadImage}>Upload</Button>
                             </div>
                         </div>

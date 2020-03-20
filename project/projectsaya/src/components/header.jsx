@@ -52,7 +52,7 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <div style={{ fontFamily: 'Oxanium' }}>
       {/* modal Login */}
       <MDBModal isOpen={modalbaru} toggle={toggleLogin} centered>
         <MDBModalHeader className="text-center warna-modal" titleClass="w-100 font-weight-bold">
