@@ -27,22 +27,25 @@ class Cart extends Component {
         // var datacart = this.state.datacart
         var totalharga = this.state.totalharga
         var iduser = this.state.datacart[0].userid
-        // let data = {
-        //     totalharga,
-        //     iduser,
-        //     datacart: this.state.datacart
-        // }
-        console.log(iduser);
-        console.log(totalharga)
+
+        // console.log(iduser);
+        // console.log(totalharga)
         Axios.post(`${APIURL}game/checkout/${iduser}`, {
             totalharga
         })
+            .then(res => {
+                this.setState({ redirect: true })
+                console.log('berhasil checkout')
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     deleteItem = (id, index) => {
         console.log(id, index);
         var userid = this.state.datacart[index].userid
-        // console.log(userid);
+        // console.log(this.state.datacart);
         Axios.delete(`${APIURL}game/deletecart/${id}`)
             .then(res => {
                 Axios.get(`${APIURL}game/getcart/${userid}`)
@@ -92,7 +95,7 @@ class Cart extends Component {
                                     <NumberFormat value={val.harga} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} style={{ paddingLeft: '10px' }} />
                                 </div>
                             </Typography>
-                            <IconButton onClick={() => this.deleteItem(val.idtransaksi, index)} style={{ marginLeft: '450px' }} >
+                            <IconButton onClick={() => this.deleteItem(val.idtransaksidetail, index)} style={{ marginLeft: '450px' }} >
                                 <DeleteIcon style={{ color: 'white' }} />
                             </IconButton>
                         </ExpansionPanelDetails>
@@ -109,6 +112,7 @@ class Cart extends Component {
 
     componentDidMount() {
         var id = localStorage.getItem("id")
+        // var totalharga = this.state.totalharga
         // var id = this.props.iduser
         // console.log(id);
         Axios.get(`${APIURL}game/getcart/${id}`)
@@ -121,7 +125,6 @@ class Cart extends Component {
                     harga += val.harga
                 });
                 this.setState({ totalharga: harga, datacart: res.data })
-                console.log(this.state.totalharga, this.state.datacart);
             })
             .catch(err => {
                 console.log(err);
@@ -147,7 +150,7 @@ class Cart extends Component {
                         <div style={{ minWidth: '100px', marginTop: '20px', color: 'white', fontFamily: 'Oxanium', fontSize: '25px' }}>
                             Estimated Price :
                             <NumberFormat value={this.state.totalharga} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} style={{ color: 'white', marginLeft: '10px' }} />
-                            <Button variant='dark' style={{ marginLeft: '200px', marginBottom: '10px' }} onClick={this.checkOut}><Link to='/payment'>Checkout</Link></Button>
+                            <Button variant='dark' style={{ marginLeft: '200px', marginBottom: '10px' }} onClick={this.checkOut}>Checkout</Button>
                         </div>
                     </div>
                 </div>
@@ -158,7 +161,7 @@ class Cart extends Component {
 
 const mapStateToProps = state => {
     return {
-        iduser: state.auth.id,
+        iduser: state.auth.id
     };
 };
 export default connect(mapStateToProps, {})(Cart);

@@ -14,7 +14,7 @@ class DetailStore extends Component {
     onAddtoCart = () => {
         var gameid = this.state.detailgame.id
         var userid = this.props.iduser
-        // console.log(dataCart);
+        console.log(userid);
 
         Axios.post(`${APIURL}game/addcart`, {
             gameid,
@@ -34,7 +34,7 @@ class DetailStore extends Component {
         var id = this.props.match.params.id
         Axios.get(`${APIURL}game/getdetailgame/${id}`)
             .then(res => {
-                // console.log(res.data)
+                console.log(res.data)
                 this.setState({ detailgame: res.data[0] })
                 // console.log(this.state.detailgame);
             })

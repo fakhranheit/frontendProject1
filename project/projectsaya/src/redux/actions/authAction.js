@@ -43,6 +43,12 @@ export const logOut = () => {
     dispatch({ type: USER_LOGOUT });
 };
 
+// export const totalHarga = () => {
+//   return dispatch => {
+//     dispatch({ type: TOTAL_HARGA })
+//   }
+// }
+
 export const loginAction = (username, password) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING });

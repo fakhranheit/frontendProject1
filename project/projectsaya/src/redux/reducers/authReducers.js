@@ -36,6 +36,10 @@ export default (state = INITIAL_STATE, action) => {
     case AUTH_LOGIN_ERROR:
       return { ...INITIAL_STATE, loginerror: action.payload };
 
+    // case TOTAL_HARGA:
+    //   console.log(action.payload);
+    //   return { ...state, totalharga: action.payload }
+
     default:
       return state;
   }

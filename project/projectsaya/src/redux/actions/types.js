@@ -6,4 +6,4 @@ export const AUTH_LOADING = "AUTH_LOADING";
 export const AUTH_SYSTEM_ERROR = "AUTH_SYSTEM_ERROR";
 export const AUTH_LOGIN_ERROR = "AUTH_LOGIN_ERROR";
 export const AUTH_REGISTER_ERROR = "AUTH_REGISTER_ERROR";
-export const DATA_CART = "DATA_CART"
+// export const TOTAL_HARGA = "TOTAL_HARGA"

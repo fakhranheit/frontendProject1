@@ -156,17 +156,9 @@ class TableProduct extends Component {
 
         Axios.post(`${APIURL}game/addgame`, formdata, Headers)
             .then(res => {
-                // console.log('resdatagame', res.data.dataGame)
+                console.log('resdatagame', res.data.dataGame)
                 this.setState({ tabelData: res.data.dataGame })
                 this.setState({ modaladd: false })
-                Axios.get(`${APIURL}game/getgame`)
-                    .then(res1 => {
-                        this.setState({ tabelData: res1.data })
-                        console.log('get game', res1.data)
-                    })
-                    .catch(err => {
-                        // console.log(err)
-                    })
             })
             .catch(err => {
                 // console.log(err)
