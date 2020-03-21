@@ -16,7 +16,7 @@ class DetailStore extends Component {
         var userid = this.props.iduser
         console.log(userid);
 
-        Axios.post(`${APIURL}game/addcart`, {
+        Axios.post(`${APIURL}user/addcart`, {
             gameid,
             userid,
         })

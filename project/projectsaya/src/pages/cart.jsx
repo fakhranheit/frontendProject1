@@ -30,7 +30,7 @@ class Cart extends Component {
 
         // console.log(iduser);
         // console.log(totalharga)
-        Axios.post(`${APIURL}game/checkout/${iduser}`, {
+        Axios.post(`${APIURL}user/checkout/${iduser}`, {
             totalharga
         })
             .then(res => {
@@ -46,9 +46,9 @@ class Cart extends Component {
         console.log(id, index);
         var userid = this.state.datacart[index].userid
         // console.log(this.state.datacart);
-        Axios.delete(`${APIURL}game/deletecart/${id}`)
+        Axios.delete(`${APIURL}user/deletecart/${id}`)
             .then(res => {
-                Axios.get(`${APIURL}game/getcart/${userid}`)
+                Axios.get(`${APIURL}user/getcart/${userid}`)
                     .then(res => {
                         // console.log(res.data);
                         // this.setState({ datacart: res.data })
@@ -115,7 +115,7 @@ class Cart extends Component {
         // var totalharga = this.state.totalharga
         // var id = this.props.iduser
         // console.log(id);
-        Axios.get(`${APIURL}game/getcart/${id}`)
+        Axios.get(`${APIURL}user/getcart/${id}`)
             .then(res => {
                 // console.log(res.data);
                 // this.setState({ datacart: res.data })

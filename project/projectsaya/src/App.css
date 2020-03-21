@@ -59,12 +59,27 @@
 /* header selesai */
 
 /* home */
-.isi-carousel {
-  border-radius: 40px;
+.text-carousel {
+  font-family: "Oxanium";
+  color: white;
+  opacity: 0.8;
+  transition: 1s;
+  width: 100%;
+}
+
+.text-carousel:hover{
+  background-color:black ;
+  font-family: "Oxanium";
+  font-weight: 900;
+  color: white;
+  opacity: 1;
+  transition: 1s;
+  border-radius: 10px;
 }
 
 .border-carousel {
   padding: 90px;
+  /* border: 1px solid white; */
 }
 
 .warna-header {

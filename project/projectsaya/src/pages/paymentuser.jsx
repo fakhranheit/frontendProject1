@@ -45,7 +45,7 @@ class PaymentUser extends Component {
 
         console.log(formdata);
 
-        Axios.put(`${APIURL}game/uploadTrans/${iduser}`, formdata, Headers)
+        Axios.put(`${APIURL}user/uploadTrans/${iduser}`, formdata, Headers)
             .then(res => {
                 console.log(res)
             })
@@ -58,7 +58,7 @@ class PaymentUser extends Component {
         var id = localStorage.getItem("id")
         this.setState({ iduser: id })
         // var id = this.props.iduser
-        Axios.get(`${APIURL}game/gettotalharga/${id}`)
+        Axios.get(`${APIURL}user/gettotalharga/${id}`)
             .then(res => {
                 console.log(res.data)
                 this.setState({ totalharga: res.data[0].totalharga })
