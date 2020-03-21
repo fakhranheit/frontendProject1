@@ -246,7 +246,7 @@ input[type="number"]:focus {
   width: 100%;
   border-radius: 10px;
   justify-content: center;
-  min-height: 120vh120vh;
+  min-height: 120vh;
   min-width: 180vh;
   padding: 60px;
   display: flex;

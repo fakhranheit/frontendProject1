@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import "react-responsive-carousel/lib/styles/carousel.min.css";
 // import { Carousel } from "react-responsive-carousel";
-import { MDBCardBody, MDBBadge, MDBIcon } from "mdbreact";
+// import { MDBCardBody, MDBBadge, MDBIcon } from "mdbreact";
 import { Zoom } from 'react-reveal'
 import Axios from 'axios'
 import { APIURL, APIURLImg } from '../helper/apiurl'

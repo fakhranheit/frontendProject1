@@ -3,6 +3,7 @@ import { Table, Button } from 'react-bootstrap'
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, FormText } from 'reactstrap'
 import Axios from 'axios'
 import { APIURL, APIURLImg } from '../helper/apiurl'
+import { Link } from 'react-router-dom'
 
 class TableProduct extends Component {
     state = {
@@ -14,7 +15,9 @@ class TableProduct extends Component {
         genreId: 0,
         tabelData: [],
         indexedit: -1,
-        dataedit: []
+        dataedit: [],
+        page: 1,
+        pager: {}
     }
 
     renderSelect = () => {
@@ -32,22 +35,22 @@ class TableProduct extends Component {
         if (tabel.length) {
             return tabel.map((val, index) => {
                 return (
-                    <tbody key={index}>
-                        <tr>
-                            {/* {console.log('INI TANGGAL UPLOAD', val.tanggalUpload)} */}
-                            <td>{index + 1}</td>
-                            <td>{val.namaGame}</td>
-                            <td>{val.deskripsi}</td>
-                            <td>{val.namaGenre}</td>
-                            <td>{val.harga}</td>
-                            <td><img src={`${APIURLImg + val.foto}`} height="40px" alt='' /></td>
-                            <td>{val.tanggalUpload}</td>
-                            <td>
-                                <Button size="sm" variant="dark" onClick={() => this.clickEdit(index)}>Edit</Button>
-                                <Button size="sm" variant="dark" onClick={() => this.deleteBtn(index)} >Delete</Button>
-                            </td>
-                        </tr>
-                    </tbody>
+
+                    <tr>
+                        {/* {console.log('INI TANGGAL UPLOAD', val.tanggalUpload)} */}
+                        <td>{index + 1}</td>
+                        <td>{val.namaGame}</td>
+                        <td>{val.deskripsi}</td>
+                        <td>{val.namaGenre}</td>
+                        <td>{val.harga}</td>
+                        <td><img src={`${APIURLImg + val.foto}`} height="40px" alt='' /></td>
+                        <td>{val.tanggalUpload}</td>
+                        <td>
+                            <Button size="sm" variant="dark" onClick={() => this.clickEdit(index)}>Edit</Button>
+                            <Button size="sm" variant="dark" onClick={() => this.deleteBtn(index)} >Delete</Button>
+                        </td>
+                    </tr>
+
                 )
             })
         } else {
@@ -181,25 +184,39 @@ class TableProduct extends Component {
     }
 
     componentDidMount() {
-        Axios.get(`${APIURL}game/getgame`)
-            .then(res1 => {
-                // console.log('get game', res1.data)
-                this.setState({ tabelData: res1.data })
+        Axios.get(`${APIURL}game/getgenre`)
+            .then(res => {
+                this.setState({ genre: res.data })
             })
             .catch(err => {
                 console.log(err)
             })
-        Axios.get(`${APIURL}game/getgenre`)
-            .then(res => {
-                this.setState({ genre: res.data })
-                // console.log('get genre', res.data)
+        Axios.get(`${APIURL}game/getgameadmin/${this.state.page}`)
+            .then(res1 => {
+                console.log('get game', res1.data)
+                this.setState({ tabelData: res1.data.pageOfData, pager: res1.data.pager })
             })
             .catch(err => {
                 console.log(err)
             })
     }
 
+    componentDidUpdate(_, prevState) {
+        if (prevState.page !== this.state.page) {
+            Axios.get(`${APIURL}game/getgameadmin/${this.state.page}`)
+                .then(res1 => {
+                    console.log('get game', res1.data.pager)
+                    this.setState({ tabelData: res1.data.pageOfData, pager: res1.data.pager })
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+    }
+
     render() {
+        var { pager } = this.state
+        console.log('INI PAGER', pager)
         return (
             <div style={{ marginTop: '20px' }}>
 
@@ -303,8 +320,35 @@ class TableProduct extends Component {
                             <th style={{ justifyContent: 'center' }}>Action</th>
                         </tr>
                     </thead>
-                    {this.renderTabel()}
+                    <tbody>
+                        {this.renderTabel()}
+                    </tbody>
+                    <tfoot >
+                        {pager.pages && pager.pages.length &&
+                            <ul className="pagination" style={{ backgroundColor: '#343a40', color: 'white' }}>
+                                <li className={`page-item first-item ${pager.currentPage === 1 ? 'disabled' : ''}`}>
+                                    <Link to={{ search: `?page=1` }} className="page-link" onClick={() => this.setState({ page: pager.startPage })}  >First</Link>
+                                </li>
+                                <li className={`page-item previous-item ${pager.currentPage === 1 ? 'disabled' : ''}`}>
+                                    <Link className="page-link" onClick={() => this.setState({ page: pager.currentPage - 1 })}>Previous</Link>
+                                </li>
+                                {pager.pages.map(page =>
+                                    <li key={page} className={`page-item number-item ${pager.currentPage === page ? 'active' : ''}`}>
+                                        <Link className="page-link" onClick={() => this.setState({ page: page })}>{page}</Link>
+                                    </li>
+                                )}
+                                <li className={`page-item next-item ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`}>
+                                    <Link className="page-link" onClick={() => this.setState({ page: pager.currentPage + 1 })}>Next</Link>
+                                </li>
+                                <li className={`page-item last-item ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`}>
+                                    <Link className="page-link" onClick={() => this.setState({ page: pager.endPage })}>Last</Link>
+                                </li>
+                            </ul>
+                        }
+
+                    </tfoot>
                 </Table>
+
             </div>
         );
     }

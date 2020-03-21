@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 
 class Cart extends Component {

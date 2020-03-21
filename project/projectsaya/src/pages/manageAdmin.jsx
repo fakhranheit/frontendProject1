@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import TabelProduct from '../components/tabelProduct'
 import TabelGenre from '../components/tabelGenre'
+import TabelTransaction from '../components/tabelTransaction'
 import { connect } from 'react-redux'
 
 class Admin extends Component {
@@ -35,7 +36,7 @@ class Admin extends Component {
                   </TabPanel>
 
                   <TabPanel tabId="vertical-tab-three">
-                    <p>Tab 3 content</p>
+                    <TabelTransaction />
                   </TabPanel>
                 </div>
               </Tabs>
