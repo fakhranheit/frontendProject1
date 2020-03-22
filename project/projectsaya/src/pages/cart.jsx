@@ -132,36 +132,50 @@ class Cart extends Component {
     }
 
     render() {
-        if (this.state.redirect) {
+
+        const role = this.props.role
+        const loginstatus = this.props.loginstatus
+
+        if (role === 'user' && loginstatus === true) {
+            if (this.state.redirect) {
+                return (
+                    <Redirect to='payment' />
+                )
+            }
             return (
-                <Redirect to='payment' />
-            )
-        }
-        return (
-            <div>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <div style={{ width: '800px', marginTop: '50px', minHeight: '100vh', padding: '30px', backgroundColor: '#161f2d' }}>
-                        <div style={{ display: 'flex', justifyContent: 'center', color: 'white' }}>
-                            <h1 style={{ fontFamily: 'Oxanium' }}>Your Shopping Cart</h1>
-                        </div>
-                        <div>
-                            {this.renderItem()}
-                        </div>
-                        <div style={{ minWidth: '100px', marginTop: '20px', color: 'white', fontFamily: 'Oxanium', fontSize: '25px' }}>
-                            Estimated Price :
-                            <NumberFormat value={this.state.totalharga} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} style={{ color: 'white', marginLeft: '10px' }} />
-                            <Button variant='dark' style={{ marginLeft: '200px', marginBottom: '10px' }} onClick={this.checkOut}>Checkout</Button>
+                <div>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <div style={{ width: '800px', marginTop: '50px', minHeight: '100vh', padding: '30px', backgroundColor: '#161f2d' }}>
+                            <div style={{ display: 'flex', justifyContent: 'center', color: 'white' }}>
+                                <h1 style={{ fontFamily: 'Oxanium' }}>Your Shopping Cart</h1>
+                            </div>
+                            <div>
+                                {this.renderItem()}
+                            </div>
+                            <div style={{ minWidth: '100px', marginTop: '20px', color: 'white', fontFamily: 'Oxanium', fontSize: '25px' }}>
+                                Estimated Price :
+                                <NumberFormat value={this.state.totalharga} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} style={{ color: 'white', marginLeft: '10px' }} />
+                                <Button variant='dark' style={{ marginLeft: '200px', marginBottom: '10px' }} onClick={this.checkOut}>Checkout</Button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
+        else {
+            return (
+                <Redirect to='/' />
+            )
+        }
+
     }
 }
 
 const mapStateToProps = state => {
     return {
-        iduser: state.auth.id
+        iduser: state.auth.id,
+        role: state.auth.role,
+        loginstatus: state.auth.loginstatus
     };
 };
 export default connect(mapStateToProps, {})(Cart);

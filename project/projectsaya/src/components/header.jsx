@@ -10,6 +10,7 @@ const Header = () => {
   const username = useSelector(state => state.auth.username);
   const login = useSelector(state => state.auth.loginstatus);
   const loginerror = useSelector(state => state.auth.loginerror);
+  const role = useSelector(state => state.auth.role)
   const dispatch = useDispatch();
 
   // dropdown
@@ -126,15 +127,22 @@ const Header = () => {
                     Hello, {username}
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem style={{ marginBottom: '10px' }}>
-                      <Link>Profile</Link>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <Link to="/cart">Cart</Link>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <NavLink href="/payment">Payment</NavLink>
-                    </DropdownItem>
+                    {
+                      role === 'user' ? (
+                        <div>
+                          <DropdownItem style={{ marginBottom: '10px' }}>
+                            <Link>Profile</Link>
+                          </DropdownItem>
+                          <DropdownItem style={{ marginBottom: '10px' }}>
+                            <Link to="/cart">Cart</Link>
+                          </DropdownItem>
+                          <DropdownItem>
+                            <Link to="/payment">Payment</Link>
+                          </DropdownItem>
+                        </div>
+                      ) : null
+
+                    }
                     <DropdownItem divider />
                     <DropdownItem>
                       <Link to='/' onClick={btnLogout}>Log out</Link >

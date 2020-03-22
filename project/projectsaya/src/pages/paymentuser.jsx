@@ -31,8 +31,10 @@ class PaymentUser extends Component {
         var foto = this.state.addImage
         var iduser = this.state.iduser
         var tanggalupload = new Date()
+        var paymentstatus = 'pending'
         var datainput = {
-            tanggalupload
+            tanggalupload,
+            paymentstatus
         }
         var Headers = {
             headers: {

@@ -9,7 +9,19 @@ class TabelTransaction extends Component {
     state = {
         dataCust: [],
         page: 1,
-        pager: {}
+        pager: {},
+        dataaprove: []
+    }
+
+    approvePayment = (iduser) => {
+        console.log(iduser);
+        Axios.put(`${APIURL}game/approvepay/${iduser}`)
+            .then(res => {
+                this.setState({ dataCust: res.data.pageOfData, pager: res.data.pager })
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     renderDataCust = () => {
@@ -18,7 +30,7 @@ class TabelTransaction extends Component {
         if (dataCust.length) {
 
             return dataCust.map((val, index) => {
-                // console.log(dataCust)
+                console.log(dataCust)
                 return (
                     < tr >
                         <td>{index + 1}</td>
@@ -28,7 +40,7 @@ class TabelTransaction extends Component {
                         <td><img src={`${APIURLImg + val.foto}`} height="40px" alt='' /></td>
                         <td>{val.tanggalupload}</td>
                         <td>
-                            <Button size="sm" variant="dark">Approve</Button>
+                            <Button size="sm" variant="dark" onClick={() => this.approvePayment(val.iduser)} >Approve</Button>
                         </td>
                     </tr >
                 )
@@ -83,32 +95,32 @@ class TabelTransaction extends Component {
                     <tbody>
                         {this.renderDataCust()}
                     </tbody>
-                    <tfoot style={{ display: 'flex', justifyContent: 'center' }}>
-
-                        {pager.pages && pager.pages.length &&
-                            <ul className="pagination" style={{ backgroundColor: '#343a40', color: 'white' }}>
-                                <li className={`page-item first-item ${pager.currentPage === 1 ? 'disabled' : ''}`}>
-                                    <Link to={{ search: `?page=1` }} className="page-link" onClick={() => this.setState({ page: pager.startPage })}  >First</Link>
-                                </li>
-                                <li className={`page-item previous-item ${pager.currentPage === 1 ? 'disabled' : ''}`}>
-                                    <Link className="page-link" onClick={() => this.setState({ page: pager.currentPage - 1 })}>Previous</Link>
-                                </li>
-                                {pager.pages.map(page =>
-                                    <li key={page} className={`page-item number-item ${pager.currentPage === page ? 'active' : ''}`}>
-                                        <Link className="page-link" onClick={() => this.setState({ page: page })}>{page}</Link>
-                                    </li>
-                                )}
-                                <li className={`page-item next-item ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`}>
-                                    <Link className="page-link" onClick={() => this.setState({ page: pager.currentPage + 1 })}>Next</Link>
-                                </li>
-                                <li className={`page-item last-item ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`}>
-                                    <Link className="page-link" onClick={() => this.setState({ page: pager.endPage })}>Last</Link>
-                                </li>
-                            </ul>
-                        }
-
-                    </tfoot>
                 </Table>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+                    {pager.pages && pager.pages.length &&
+                        <ul className="pagination" style={{ backgroundColor: '#343a40', color: 'white' }}>
+                            <li className={`page-item first-item ${pager.currentPage === 1 ? 'disabled' : ''}`}>
+                                <Link to={{ search: `?page=1` }} className="page-link" onClick={() => this.setState({ page: pager.startPage })}  >First</Link>
+                            </li>
+                            <li className={`page-item previous-item ${pager.currentPage === 1 ? 'disabled' : ''}`}>
+                                <Link className="page-link" onClick={() => this.setState({ page: pager.currentPage - 1 })}>Previous</Link>
+                            </li>
+                            {pager.pages.map(page =>
+                                <li key={page} className={`page-item number-item ${pager.currentPage === page ? 'active' : ''}`}>
+                                    <Link className="page-link" onClick={() => this.setState({ page: page })}>{page}</Link>
+                                </li>
+                            )}
+                            <li className={`page-item next-item ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`}>
+                                <Link className="page-link" onClick={() => this.setState({ page: pager.currentPage + 1 })}>Next</Link>
+                            </li>
+                            <li className={`page-item last-item ${pager.currentPage === pager.totalPages ? 'disabled' : ''}`}>
+                                <Link className="page-link" onClick={() => this.setState({ page: pager.endPage })}>Last</Link>
+                            </li>
+                        </ul>
+                    }
+
+                </div>
             </div>
         );
     }
