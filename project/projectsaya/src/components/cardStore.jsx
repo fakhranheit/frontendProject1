@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import Axios from 'axios'
 import { APIURL, APIURLImg } from '../helper/apiurl'
 import { Link } from 'react-router-dom'
+import { CustomInput } from 'reactstrap'
 import AOS from "aos";
 
 class CardStore extends Component {
     state = {
         dataGame: [],
         page: 1,
-        pager: {}
+        pager: {},
+        search: ''
     }
-
 
     renderProduk = () => {
         var dataGame = this.state.dataGame
@@ -46,26 +47,46 @@ class CardStore extends Component {
 
 
     componentDidUpdate(_, prevState) {
-        if (prevState.page !== this.state.page) {
-            Axios.get(`${APIURL}game/getstore/${this.state.page}`)
-                .then(res1 => {
-                    console.log('get game', res1.data)
-                    this.setState({ dataGame: res1.data.pageOfData, pager: res1.data.pager })
+        var search = this.state.search
+        if (search !== '') {
+            console.log('searched game', search);
+            Axios.post(`${APIURL}game/searchgame/${this.state.page}`, { search })
+                .then(res => {
+                    console.log(res.data);
+                    this.setState({ dataGame: res.data.pageOfData, pager: res.data.pager })
                 })
                 .catch(err => {
-                    console.log(err)
+                    console.log(err);
                 })
+        } else {
+            console.log('all game', search);
+            if (prevState.page !== this.state.page) {
+                Axios.get(`${APIURL}game/getstore/${this.state.page}`)
+                    .then(res1 => {
+                        console.log('get game', res1.data)
+                        this.setState({ dataGame: res1.data.pageOfData, pager: res1.data.pager })
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
         }
+
+
     }
 
     render() {
+        console.log(this.state.search);
         AOS.init({
             delay: 5000
         });
         var { pager } = this.state
+        // console.log('ini pager', pager)
         return (
-            <div data-aos="fade-up">
-                <h1 style={{ fontFamily: 'Oxanium', color: 'white', display: 'flex', justifyContent: 'center', paddingTop: '100px' }}>All Games</h1>
+            <div data-aos="fade-up" style={{ fontFamily: 'Oxanium', color: 'white' }}>
+                <h1 style={{ display: 'flex', justifyContent: 'center', paddingTop: '100px' }}>
+                    <CustomInput placeholder="search the game here" value={this.state.search} onChange={(e) => this.setState({ search: e.target.value })} />
+                </h1>
                 <div className="box-card-store row ">
                     {this.renderProduk()}
                 </div>

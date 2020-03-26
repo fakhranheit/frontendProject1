@@ -15,6 +15,8 @@ import StoreDisplay from "./pages/storedisplay";
 import DetailStore from "./pages/detailStore"
 import Cart from './pages/cart'
 import PaymentUser from './pages/paymentuser'
+import NotFound from './components/notfound'
+import SalesReport from './components/salesReport'
 
 class App extends Component {
   state = { loading: true };
@@ -50,6 +52,8 @@ class App extends Component {
           <Route exact path={"/detailstore/:id"} component={DetailStore} />
           <Route exact path={"/cart"} component={Cart} />
           <Route exact path={"/payment"} component={PaymentUser} />
+          <Route exact path={"/notfound"} component={NotFound} />
+          <Route exact path={"/SalesReport"} component={SalesReport} />
         </Switch>
         <Footer />
       </div>

@@ -122,7 +122,7 @@ const Header = () => {
                 <NavLink href="">About</NavLink>
               </NavItem>
               {login === true ? (
-                <Dropdown style={{ marginLeft: "180vh", position: 'absolute' }} isOpen={dropdownOpen} toggle={toggleAccount}>
+                <Dropdown style={{ marginLeft: "170vh", position: 'absolute' }} isOpen={dropdownOpen} toggle={toggleAccount}>
                   <DropdownToggle nav>
                     Hello, {username}
                   </DropdownToggle>

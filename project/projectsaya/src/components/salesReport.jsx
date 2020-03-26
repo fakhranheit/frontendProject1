@@ -1,51 +1,31 @@
 import React, { Component } from 'react'
-import { Table, Button } from 'react-bootstrap'
-// import { Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, FormText } from 'reactstrap'
-import Axios from 'axios'
-import { APIURL, APIURLImg } from '../helper/apiurl'
+import { Table } from 'react-bootstrap'
+import Axios from 'axios';
+import { APIURL } from '../helper/apiurl'
 import { Link } from 'react-router-dom'
+import NumberFormat from 'react-number-format'
 
-class TabelTransaction extends Component {
+class ReportSales extends Component {
     state = {
-        dataCust: [],
+        dataHistory: [],
         page: 1,
-        pager: {},
-        dataaprove: []
+        pager: {}
     }
 
-    approvePayment = (id, iduser, status) => {
-        // console.log(id, status);
 
-        console.log(id, iduser, status)
-        Axios.put(`${APIURL}game/approvepay/${id}`, { iduser, status })
-            .then(res => {
-                this.setState({ dataCust: res.data.pageOfData, pager: res.data.pager })
-            })
-            .catch(err => {
-                console.log(err)
-            })
+    renderHistory = () => {
+        var dataHistory = this.state.dataHistory
 
-    }
+        if (dataHistory.length) {
 
-    renderDataCust = () => {
-        var dataCust = this.state.dataCust
-
-        if (dataCust.length) {
-
-            return dataCust.map((val, index) => {
-                console.log(dataCust)
+            return dataHistory.map((val, index) => {
+                console.log(dataHistory)
                 return (
                     < tr >
                         <td>{index + 1}</td>
-                        <td>{val.username}</td>
-                        <td>{val.email}</td>
-                        <td>{val.totalharga}</td>
-                        <td><img src={`${APIURLImg + val.foto}`} height="40px" alt='' /></td>
-                        <td>{val.tanggalupload}</td>
-                        <td style={{ display: "column" }}>
-                            <Button size="sm" variant="dark" onClick={() => this.approvePayment(val.id, val.iduser, true)} >Approve</Button>
-                            <Button size="sm" variant="dark" onClick={() => this.approvePayment(val.id, val.iduser, false)} >Decline</Button>
-                        </td>
+                        <td>{val.namaGame}</td>
+                        <td>{val.jumlahUser}</td>
+                        <td> <NumberFormat value={val.total_penjualan} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} /></td>
                     </tr >
                 )
             })
@@ -58,21 +38,21 @@ class TabelTransaction extends Component {
     }
 
     componentDidMount() {
-        Axios.get(`${APIURL}game/getpayment/${this.state.page}`)
-            .then(res1 => {
-                console.log('get game', res1.data)
-                this.setState({ dataCust: res1.data.pageOfData, pager: res1.data.pager })
+        Axios.get(`${APIURL}game/gethistory/${this.state.page}`)
+            .then(res => {
+                console.log(res.data);
+                this.setState({ dataHistory: res.data.pageOfData, pager: res.data.pager })
             })
             .catch(err => {
-                console.log(err)
+                console.log(err);
             })
     }
+
     componentDidUpdate(_, prevState) {
         if (prevState.page !== this.state.page) {
-            Axios.get(`${APIURL}game/getpayment/${this.state.page}`)
-                .then(res1 => {
-                    console.log('get game', res1.data)
-                    this.setState({ dataCust: res1.data.pageOfData, pager: res1.data.pager })
+            Axios.get(`${APIURL}game/gethistory/${this.state.page}`)
+                .then(res => {
+                    this.setState({ dataHistory: res.data.pageOfData, pager: res.data.pager })
                 })
                 .catch(err => {
                     console.log(err)
@@ -88,16 +68,13 @@ class TabelTransaction extends Component {
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Total Harga</th>
-                            <th>Foto Transaksi</th>
-                            <th>Tanggal Transaksi</th>
-                            <th style={{ justifyContent: 'center' }}>Action</th>
+                            <th>Nama Game</th>
+                            <th>Total Download</th>
+                            <th>Total Pembelian</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.renderDataCust()}
+                        {this.renderHistory()}
                     </tbody>
                 </Table>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -123,11 +100,10 @@ class TabelTransaction extends Component {
                             </li>
                         </ul>
                     }
-
                 </div>
             </div>
         );
     }
 }
 
-export default TabelTransaction;
+export default ReportSales;

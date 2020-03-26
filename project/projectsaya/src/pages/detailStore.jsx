@@ -26,7 +26,7 @@ class DetailStore extends Component {
             })
             .catch(err1 => {
                 console.log(err1);
-
+                alert('You Have to login to buy this Game')
             })
     }
 
@@ -72,7 +72,8 @@ class DetailStore extends Component {
 const mapStateToProps = state => {
     return {
         username: state.auth.username,
-        iduser: state.auth.id
+        iduser: state.auth.id,
+        loginstatus: state.auth.loginstatus
     };
 };
 

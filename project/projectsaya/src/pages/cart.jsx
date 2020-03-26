@@ -164,7 +164,7 @@ class Cart extends Component {
         }
         else {
             return (
-                <Redirect to='/' />
+                <Redirect to='/notfound' />
             )
         }
 

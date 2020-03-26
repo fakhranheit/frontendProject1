@@ -3,6 +3,7 @@ import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import TabelProduct from '../components/tabelProduct'
 import TabelGenre from '../components/tabelGenre'
 import TabelTransaction from '../components/tabelTransaction'
+import SalesReport from '../components/salesReport'
 import { connect } from 'react-redux'
 
 class Admin extends Component {
@@ -23,6 +24,7 @@ class Admin extends Component {
                   <Tab tabFor="vertical-tab-one" style={{ color: 'white' }}>Product</Tab>
                   <Tab tabFor="vertical-tab-two" style={{ color: 'white' }}>Genre</Tab>
                   <Tab tabFor="vertical-tab-three" style={{ color: 'white' }}> Transaction </Tab>
+                  <Tab tabFor="vertical-tab-four" style={{ color: 'white' }}> Sales Report </Tab>
                 </TabList>
 
                 {/* TAB KANAN */}
@@ -38,6 +40,10 @@ class Admin extends Component {
                   <TabPanel tabId="vertical-tab-three">
                     <TabelTransaction />
                   </TabPanel>
+
+                  <TabPanel tabId="vertical-tab-four">
+                    <SalesReport />
+                  </TabPanel>
                 </div>
               </Tabs>
             </div>
@@ -47,7 +53,6 @@ class Admin extends Component {
     }
     else {
       return (
-
         <h1>HARUS ADMIN</h1>
       )
     }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Card from "./../components/card";
 import Carousel from '../components/carousel'
+import JumbotronStore from '../components/jumbotronStore'
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux'
 
@@ -16,6 +17,7 @@ class Home extends Component {
     return (
       <div>
         <Carousel />
+        <JumbotronStore />
         <Card />
       </div>
     );

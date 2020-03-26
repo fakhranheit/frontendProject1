@@ -39,7 +39,7 @@ class JumbotronStore extends Component {
 
     render() {
         return (
-            <div style={{ minHeight: '80vh', display: 'flex', marginTop: '40px' }}>
+            <div style={{ minHeight: '80vh', display: 'flex' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                     <div style={{ margin: 'auto', display: 'flex', flexDirection: 'column', backgroundColor: "#141a2d", borderRadius: '30px' }}>
                         <div style={{ color: 'white', marginLeft: '50px', marginTop: '20px', fontWeight: 'bolder', fontSize: '2rem', fontFamily: 'Patua One' }}>Upcoming games</div>
