@@ -5,13 +5,15 @@ import Axios from 'axios'
 import { APIURL } from '../helper/apiurl'
 import NumberFormat from 'react-number-format'
 import { Button } from 'react-bootstrap'
-
+import { Redirect } from 'react-router-dom'
 
 class PaymentUser extends Component {
     state = {
         addImage: null,
         totalharga: 0,
-        iduser: 0
+        iduser: 0,
+        idtransaksi: 0,
+        redirect: false
     }
 
     onChangeImage = (event) => {
@@ -29,7 +31,8 @@ class PaymentUser extends Component {
         console.log(this.state.addImage, this.state.iduser);
         var formdata = new FormData()
         var foto = this.state.addImage
-        var iduser = this.state.iduser
+        // var iduser = this.state.iduser
+        var idtransaksi = this.state.idtransaksi
         var tanggalupload = new Date()
         var paymentstatus = 'pending'
         var datainput = {
@@ -47,9 +50,10 @@ class PaymentUser extends Component {
 
         console.log(formdata);
 
-        Axios.put(`${APIURL}user/uploadTrans/${iduser}`, formdata, Headers)
+        Axios.put(`${APIURL}user/uploadTrans/${idtransaksi}`, formdata, Headers)
             .then(res => {
                 console.log(res)
+                this.setState({ redirect: true })
             })
             .catch(err => {
                 console.log(err);
@@ -63,7 +67,7 @@ class PaymentUser extends Component {
         Axios.get(`${APIURL}user/gettotalharga/${id}`)
             .then(res => {
                 console.log(res.data)
-                this.setState({ totalharga: res.data[0].totalharga })
+                this.setState({ totalharga: res.data[0].totalharga, idtransaksi: res.data[0].id })
             })
             .catch(err => {
                 console.log(err)
@@ -71,7 +75,9 @@ class PaymentUser extends Component {
     }
 
     render() {
-        console.log(this.props.iduser);
+        if (this.state.redirect === true) {
+            return <Redirect to={'/'} />
+        }
         return (
             <div>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>

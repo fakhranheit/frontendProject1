@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 import { CustomInput } from 'reactstrap'
 import AOS from "aos";
 import SearchIcon from '@material-ui/icons/Search';
-import { Button } from 'react-bootstrap'
+// import { Button } from 'react-bootstrap'
+import { Zoom } from 'react-reveal'
 
 class CardStore extends Component {
     state = {
@@ -76,7 +77,7 @@ class CardStore extends Component {
 
 
     componentDidUpdate(_, prevState) {
-        if (prevState.page !== this.state.page && this.state.search == '') {
+        if (prevState.page !== this.state.page && this.state.search === '') {
             Axios.get(`${APIURL}game/getstore/${this.state.page}`)
                 .then(res1 => {
                     console.log('get game', res1.data)
@@ -107,16 +108,22 @@ class CardStore extends Component {
         // console.log('ini pager', pager)
         return (
             <div data-aos="fade-up" style={{ fontFamily: 'Oxanium', color: 'white' }}>
-                <h1 style={{ display: 'flex', justifyContent: 'center', paddingTop: '100px' }}>
-                    <CustomInput placeholder="search the game here" value={this.state.search} onChange={(e) => this.setState({ search: e.target.value })} />
-                    <Button variant='dark' onClick={this.searchGame} >
-                        <SearchIcon fontSize='large' />
-                    </Button>
-                </h1>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '100px' }}>
+                    <h1 style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Zoom >
+                            <CustomInput placeholder="search the game here" value={this.state.search} onChange={(e) => this.setState({ search: e.target.value })} />
+                        </Zoom>
+                        <Zoom>
+                            <button onClick={this.searchGame} style={{ width: '70px' }} >
+                                <SearchIcon fontSize='medium' />
+                            </button>
+                        </Zoom>
+                    </h1>
+                </div>
                 <div className="box-card-store row ">
                     {this.renderProduk()}
                 </div>
-                <div style={{ marginLeft: '35%', width: '350px' }}>
+                <div style={{ marginLeft: '35%', minWidth: '350px', maxWidth: 'fit-content' }}>
                     {pager.pages && pager.pages.length &&
                         <ul className="pagination" style={{ backgroundColor: '#343a40', color: 'white' }}>
                             <li className={`page-item first-item ${pager.currentPage === 1 ? 'disabled' : ''}`}>

@@ -22,6 +22,7 @@ class TableProduct extends Component {
 
     renderSelect = () => {
         var genre = this.state.genre
+        console.log(genre)
         return genre.map((val, index) => {
             return <option value={val.id} key={index}>{val.namaGenre}</option>
         })
