@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Card from "./../components/card";
 import Carousel from '../components/carousel'
-import JumbotronStore from '../components/jumbotronStore'
+import JumbotronStore from '../components/jumbotronHome'
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux'
 

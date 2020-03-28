@@ -1,61 +1,27 @@
 import React, { Component } from 'react'
-import Axios from 'axios'
-import { APIURL } from '../helper/apiurl'
+import { Jumbotron, Container } from 'react-bootstrap'
+import { Zoom } from 'react-reveal'
+
 
 
 class JumbotronStore extends Component {
-    state = {
-        dataGenre: {}
-    }
-
-
-    renderList = () => {
-        var genre = this.state.dataGenre
-        if (genre.length) {
-            return genre.map((val) => {
-                // console.log('ini genre', genre);
-                return <div style={{ display: 'flex', justifyContent: 'center' }} value={val.id}>
-                    <div style={{ cursor: 'pointer' }}>
-                        {val.namaGenre}
-                    </div>
-                </div>
-            })
-        }
-        else {
-            return <h1>Loading ...</h1>
-        }
-    }
-
-    componentDidMount() {
-        Axios.get(`${APIURL}game/getgenre`)
-            .then(res => {
-                this.setState({ dataGenre: res.data })
-                // console.log('get genre', res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
-
+    state = {}
     render() {
         return (
-            <div style={{ minHeight: '80vh', display: 'flex' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-                    <div style={{ margin: 'auto', display: 'flex', flexDirection: 'column', backgroundColor: "#141a2d", borderRadius: '30px' }}>
-                        <div style={{ color: 'white', marginLeft: '50px', marginTop: '20px', fontWeight: 'bolder', fontSize: '2rem', fontFamily: 'Patua One' }}>Upcoming games</div>
-                        <div style={{ display: 'flex', flexDirection: 'row' }}>
-                            <iframe title='video' style={{ paddingTop: '20px', paddingLeft: '50px', paddingRight: '50px', paddingBottom: '50px' }} width="560" height="400" src="https://www.youtube.com/embed/DbolchbGedk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
-
-                            <div style={{ borderRadius: "10px", padding: '20px', backgroundColor: '#1b2838', color: 'white', fontWeight: 'bolder', minWidth: '30vh', marginTop: '20px', marginBottom: '50px', marginRight: '50px' }}>
-                                <div style={{ fontFamily: 'Oxanium' }}>
-                                    <div style={{ fontSize: '30px', marginBottom: '20px' }}>Browse by Genre</div>
-                                    {this.renderList()}
-                                </div>
+            <div style={{ paddingLeft: '100px', paddingRight: '100px', paddingTop: '50px', fontFamily: 'Oxanium', color: 'white' }}>
+                <Zoom>
+                    <Jumbotron fluid style={{
+                        backgroundColor: '#343a40', borderRadius: '10px',
+                        backgroundImage: `url(https://i.pinimg.com/originals/7f/6d/06/7f6d06b54982933dda38a6331b0ac6cc.jpg)`, backgroundSize: 'cover',
+                        backgroundPosition: 'center', backgroundRepeat: 'no-repeat'
+                    }} >
+                        <Container>
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <h1 style={{ marginTop: '400px' }}>This is our time, this is our Arena</h1>
                             </div>
-
-                        </div>
-                    </div>
-                </div>
+                        </Container>
+                    </Jumbotron>
+                </Zoom>
             </div>
         );
     }

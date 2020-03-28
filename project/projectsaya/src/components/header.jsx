@@ -107,7 +107,7 @@ const Header = () => {
               <NavItem>
                 <NavLink>
                   <Link to='/storedisplay' style={{ color: 'white' }}>
-                    Store
+                    Explore
                   </Link>
                 </NavLink>
               </NavItem>

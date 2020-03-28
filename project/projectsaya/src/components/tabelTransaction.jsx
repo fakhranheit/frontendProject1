@@ -5,6 +5,7 @@ import Axios from 'axios'
 import { APIURL, APIURLImg } from '../helper/apiurl'
 import { Link } from 'react-router-dom'
 
+
 class TabelTransaction extends Component {
     state = {
         dataCust: [],
@@ -13,10 +14,33 @@ class TabelTransaction extends Component {
         dataaprove: []
     }
 
+    RefreshData = () => {
+        Axios.get(`${APIURL}game/getpayment/${this.state.page}`)
+            .then(res1 => {
+                console.log('get game', res1.data)
+                this.setState({ dataCust: res1.data.pageOfData, pager: res1.data.pager })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    searchUser = () => {
+        var search = this.refs.searched.value
+        console.log(search);
+
+        var dataCust = this.state.dataCust;
+
+        var hasil = dataCust.filter(function (data) {
+            return data.username === search;
+        });
+
+        this.setState({ dataCust: hasil })
+    }
+
     approvePayment = (id, iduser, status) => {
         // console.log(id, status);
-
-        console.log(id, iduser, status)
+        // console.log(id, iduser, status)
         Axios.put(`${APIURL}game/approvepay/${id}`, { iduser, status })
             .then(res => {
                 this.setState({ dataCust: res.data.pageOfData, pager: res.data.pager })
@@ -33,7 +57,7 @@ class TabelTransaction extends Component {
         if (dataCust.length) {
 
             return dataCust.map((val, index) => {
-                console.log(dataCust)
+
                 return (
                     < tr >
                         <td>{index + 1}</td>
@@ -84,6 +108,9 @@ class TabelTransaction extends Component {
         var { pager } = this.state
         return (
             <div>
+                <input placeholder='search user' ref='searched' />
+                <Button onClick={this.searchUser} size='sm' variant='dark' >Search</Button>
+                <Button onClick={this.RefreshData} size='sm' variant='dark' >Refresh</Button>
                 <Table striped bordered hover variant="dark" style={{ marginTop: '10px' }}>
                     <thead>
                         <tr>
@@ -125,7 +152,7 @@ class TabelTransaction extends Component {
                     }
 
                 </div>
-            </div>
+            </div >
         );
     }
 }

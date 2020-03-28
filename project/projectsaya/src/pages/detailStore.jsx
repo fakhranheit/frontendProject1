@@ -52,7 +52,7 @@ class DetailStore extends Component {
                         <img src={`${APIURLImg + this.state.detailgame.foto}`} alt="" style={{ width: '500px', height: '300px', borderRadius: '10px' }} />
                         <div style={{ marginLeft: '50px' }}>
                             <div style={{ fontSize: '40px' }}> {this.state.detailgame.namaGame} </div>
-                            <div style={{ marginTop: '10px', marginBottom: '7px' }}>{this.state.detailgame.namaGenre}</div>
+                            <div style={{ marginTop: '10px', marginBottom: '7px', fontSize: '20px' }}>{this.state.detailgame.namaGenre}</div>
                             <div style={{ marginBottom: '20px' }}>{this.state.detailgame.deskripsi}</div>
                             <div>
                                 <Button onClick={this.onAddtoCart} variant='dark' title='Buy'> <NumberFormat value={this.state.detailgame.harga} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} /></Button>

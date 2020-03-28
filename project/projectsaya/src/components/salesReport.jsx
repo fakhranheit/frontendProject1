@@ -19,7 +19,7 @@ class ReportSales extends Component {
         if (dataHistory.length) {
 
             return dataHistory.map((val, index) => {
-                console.log(dataHistory)
+                // console.log(dataHistory)
                 return (
                     < tr >
                         <td>{index + 1}</td>

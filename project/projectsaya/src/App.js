@@ -18,6 +18,7 @@ import PaymentUser from './pages/paymentuser'
 import NotFound from './components/notfound'
 import SalesReport from './components/salesReport'
 
+
 class App extends Component {
   state = { loading: true };
 

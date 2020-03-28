@@ -386,6 +386,11 @@ textarea[type="text"]:focus {
 /* Halaman Admin selesai*/
 
 /* Halaman Store */
+
+.backgroundJumbotron{
+  background: url(/project/projectsaya/src/helper/game-4.jpg)repeat;
+}
+
 .box-card-store{
   display: grid;
   grid-template-columns: repeat(3,auto);
@@ -399,11 +404,6 @@ textarea[type="text"]:focus {
   cursor: pointer;
   transition: 0.5s ease;
 }
-
-/* .img-hover-zoom img {
-  transition: transform .5s ease;
-} */
-
 
 .img-hover-zoom:hover img {
   transform: scale(1.1);
