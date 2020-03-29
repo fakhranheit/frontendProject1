@@ -34,8 +34,8 @@ class Cart extends Component {
             totalharga
         })
             .then(res => {
+                alert('berhasil upload')
                 this.setState({ redirect: true })
-                console.log('berhasil checkout')
             })
             .catch(err => {
                 console.log(err)
