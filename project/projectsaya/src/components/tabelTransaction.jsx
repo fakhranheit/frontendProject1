@@ -10,8 +10,7 @@ class TabelTransaction extends Component {
     state = {
         dataCust: [],
         page: 1,
-        pager: {},
-        dataaprove: []
+        pager: {}
     }
 
     RefreshData = () => {

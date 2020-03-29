@@ -104,23 +104,27 @@ const Header = () => {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-              <NavItem>
-                <NavLink>
-                  <Link to='/storedisplay' style={{ color: 'white' }}>
-                    Explore
+              {role !== 'admin' ? (
+                <Nav>
+                  <NavItem>
+                    <NavLink>
+                      <Link to='/storedisplay' style={{ color: 'white' }}>
+                        Explore
                   </Link>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink >
-                  <Link to='/' style={{ color: 'white' }}>
-                    Community
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink >
+                      <Link to='/' style={{ color: 'white' }}>
+                        Community
                   </Link>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="">About</NavLink>
-              </NavItem>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="">About</NavLink>
+                  </NavItem>
+                </Nav>
+              ) : null}
               {login === true ? (
                 <Dropdown style={{ marginLeft: "170vh", position: 'absolute' }} isOpen={dropdownOpen} toggle={toggleAccount}>
                   <DropdownToggle nav>
@@ -131,7 +135,7 @@ const Header = () => {
                       role === 'user' ? (
                         <div>
                           <DropdownItem style={{ marginBottom: '10px' }}>
-                            <Link>Profile</Link>
+                            <Link to="/yourgame">Your Game</Link>
                           </DropdownItem>
                           <DropdownItem style={{ marginBottom: '10px' }}>
                             <Link to="/cart">Cart</Link>

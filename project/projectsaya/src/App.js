@@ -17,6 +17,7 @@ import Cart from './pages/cart'
 import PaymentUser from './pages/paymentuser'
 import NotFound from './components/notfound'
 import SalesReport from './components/salesReport'
+import YourGame from './components/yourGame'
 
 
 class App extends Component {
@@ -28,7 +29,7 @@ class App extends Component {
       Axios.get(`${APIURL}auth/login/${id}`)
         .then(res => {
           this.props.reLogin(res.data);
-          console.log("masuk sini");
+          // console.log("masuk sini");
         })
         .catch(err => {
           console.log("error aa");
@@ -55,6 +56,7 @@ class App extends Component {
           <Route exact path={"/payment"} component={PaymentUser} />
           <Route exact path={"/notfound"} component={NotFound} />
           <Route exact path={"/SalesReport"} component={SalesReport} />
+          <Route exact path={"/yourgame"} component={YourGame} />
         </Switch>
         <Footer />
       </div>
